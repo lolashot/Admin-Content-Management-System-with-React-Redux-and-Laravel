@@ -39,7 +39,7 @@ const AddEvent  = () => {
           staus: response.data.status
         });
         setSubmitted(true);
-        console.log(response.data);
+        console.log( "addevent",response.data);
       })
       .catch(e => {
         console.log(e);
@@ -101,7 +101,7 @@ const AddEvent  = () => {
               name="date"
             />
           </div>
-          <div className="form-group">
+          {/*<div className="form-group">
             <label htmlFor="date">Status</label>
             <input
               type="status"
@@ -112,7 +112,7 @@ const AddEvent  = () => {
               onChange={handleInputChange}
               name="status"
             />
-          </div>
+      </div>*/}
 
           <button onClick={saveEvent} className="btn btn-success">
             Submit

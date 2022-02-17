@@ -24,6 +24,8 @@ import EditStatistics from './Pages/EditStatistics'
 import EditTestimonials from './Pages/EditTestimonials'
 import AddAbout from './Pages/AddAbout' 
 import AddEvent from './Pages/AddEvents' 
+import AddStatistics from './Pages/AddStatistics'
+
 
 
 
@@ -65,6 +67,8 @@ function App() {
         <Route  path="/edittestimonial/:id" element={<EditTestimonials />} /> 
         <Route exact path="/addabout" element={<AddAbout />} />
         <Route exact path="/addevents" element={<AddEvent />} />
+        <Route exact path="/addstatistics" element={<AddStatistics />} />
+
 
         
 

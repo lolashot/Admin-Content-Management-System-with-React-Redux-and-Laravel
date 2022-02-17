@@ -54,7 +54,7 @@ else
        return ( 
         <div>
                 <div className="row">
-                    <Link to={'/addevents'} className="btn btn-primary btn-sm float-end"> Add  STATISTICS</Link>
+                    <Link to={'/addstatistics'} className="btn btn-primary btn-sm float-end"> Add  STATISTICS</Link>
                 </div>
 
 
