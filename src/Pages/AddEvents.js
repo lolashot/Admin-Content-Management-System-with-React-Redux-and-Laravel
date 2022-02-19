@@ -41,8 +41,8 @@ const AddEvent  = () => {
         setSubmitted(true);
         console.log( "addevent",response.data);
       })
-      .catch(er => {
-        console.log(er);
+      .catch(e => {
+        console.log(e);
       });
   };
 
