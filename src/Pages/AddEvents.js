@@ -5,18 +5,18 @@ import {Link, } from 'react-router-dom';
 
 const AddEvent  = () => {
   const initialEventState = {
-    id: null,
+    // id: null,
     title: "",
     details: "",
     date: "",
-    status: ""
+    // status: ""
 
   };
   const [event, setEvent] = useState(initialEventState);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleInputChange = event => {
-    const { name, value } = event.target;
+  const handleInputChange = input => {
+    const { name, value } = input.target;
     setEvent({ ...event, [name]: value });
   };
 
@@ -25,18 +25,18 @@ const AddEvent  = () => {
       title: event.title,
       details: event.details,
       date: event.date,
-      staus: event.status
+      // status: event.status
 
     };
 
     EventsDataService.create(data)
       .then(response => {
         setEvent({
-          id: response.data.id,
+          // id: response.data.id,
           title: response.data.title,
           details: response.data.details,
           date: response.data.date,
-          staus: response.data.status
+          // status: response.data.status
         });
         setSubmitted(true);
         console.log( "addevent",response.data);

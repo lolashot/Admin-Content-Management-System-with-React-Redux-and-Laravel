@@ -5,7 +5,6 @@ import {BrowserRouter as Router,  Routes, Route } from 'react-router-dom';
 import Users from './Pages/Users'
 import About from './Pages/About' 
 import Config from './Pages/Config'
-import Contact from './Pages/Contact' 
 import Gallery from './Pages/Gallery' 
 import Partners from './Pages/Partners' 
 import PreviousEvents from './Pages/PreviousEvents'
@@ -25,6 +24,8 @@ import EditTestimonials from './Pages/EditTestimonials'
 import AddAbout from './Pages/AddAbout' 
 import AddEvent from './Pages/AddEvents' 
 import AddStatistics from './Pages/AddStatistics'
+import AddConfig from './Pages/AddConfig' 
+
 
 
 
@@ -48,7 +49,6 @@ function App() {
         <Route exact path="/users" element={<Users />} />
         <Route exact path="/about" element={<About />} />
         <Route path="/config" element={<Config />} />
-        <Route exact path="/contact" element={<Contact />} />
         <Route exact path="/gallery" element={<Gallery />} /> 
         <Route exact path="/partners" element={<Partners />} /> 
         <Route exact path="/previousevents" element={<PreviousEvents />} />
@@ -68,6 +68,8 @@ function App() {
         <Route exact path="/addabout" element={<AddAbout />} />
         <Route exact path="/addevents" element={<AddEvent />} />
         <Route exact path="/addstatistics" element={<AddStatistics />} />
+        <Route exact path="/addconfig" element={<AddConfig />} />
+
 
 
         

@@ -6,8 +6,8 @@ const AddStatistics = () => {
   const initialStatisticState = {
     id: null,
     title: "",
-    description: "",
-    published: false
+    value: "",
+    // published: false
   };
   const [statistics, setStatistics] = useState(initialStatisticState);
   const [submitted, setSubmitted] = useState(false);
@@ -20,7 +20,7 @@ const AddStatistics = () => {
   const saveStatistic = () => {
     var data = {
       title: statistics.title,
-      value: statistics.description
+      value: statistics.value
     };
 
     StatisticsDataService.create(data)

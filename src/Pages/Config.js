@@ -1,15 +1,32 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import {Link, } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import ConfigDataService from "../Services/ConfigService";
-import Contact from "./Contact"
-
 
 function Config() {
+  let navigate = useNavigate();
+
+// const initialConfigState = {
+//   id: null,
+//   title: "",
+//   details: "",
+//   phone_1: "",
+//   phone_2: "",
+//   phone_3: "",
+//   email_1: "",
+//   email_2: "",
+//   email_3: "",
+//   address: "",
+//   facebook: "",
+//   linkedin: "",
+//   twitter: "",
+//   youtube: "",
+//   instagram: ""
+// };
+
 const [loading, setLoading] = useState(true);
 const [config, setConfig] = useState({});
-const [message, setMessage] = useState({});
-
+const [message, setMessage] = useState("");
 
     useEffect(() => {
     retrieveConfig();
@@ -26,7 +43,6 @@ const [message, setMessage] = useState({});
       })
       .catch(e => {
         console.log(e);
-        // setConfig({});
       });
   };
 
@@ -48,8 +64,21 @@ const [message, setMessage] = useState({});
         console.log(e);
       });
       
-
  };
+
+ const DeleteConfig = (e, id) => {
+  e.preventDefault();
+    ConfigDataService.remove(config.id)
+      .then(response => {
+        console.log(response.data);
+        setMessage(" Config Status was deleted successfully!");
+        navigate("/addconfig");
+        // props.history.push("/tutorials");
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
   
 
@@ -59,13 +88,10 @@ const [message, setMessage] = useState({});
 }
 else
 
-return 
+return (
 
 <div className="container">
 
-<div>
-  <Link to={'/addconfig'} className="btn btn-warning btn-sm float-end"> Add About</Link>
-</div>
 {config ? (
 
       <div className="card">
@@ -79,7 +105,7 @@ return
                   <label htmlFor="inputTitle">EMAIL 1</label>
                   <input type="email" className="form-control" id="inputemail"
                     placeholder="Enter email"
-                     name="date" onChange={handleInputChange}
+                     name="email_1" onChange={handleInputChange}
                     value={config.email_1}>
                     </input>
                 </div>
@@ -89,8 +115,53 @@ return
                   <label htmlFor="inputTitle">EMAIL 2</label>
                   <input type="email" className="form-control" id="inputEmail"
                     placeholder="Enter email" 
-                    name="title" onChange={handleInputChange}
+                    name="email_2" onChange={handleInputChange}
                     value={config.email_2}></input>
+                </div>
+              </div>
+              <div className="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-12">
+                <div className="form-group">
+                  <label htmlFor="inputTitle">EMAIL 2</label>
+                  <input type="email" className="form-control" id="inputEmail"
+                    placeholder="Enter email" 
+                    name="email_3" onChange={handleInputChange}
+                    value={config.email_3}></input>
+                </div>
+              </div>
+              <div className="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-12">
+                <div className="form-group">
+                  <label htmlFor="inputTitle">PHONE</label>
+                  <input type="phone" className="form-control" id="inputPhone"
+                    placeholder="Enter phone" 
+                    name="phone_1" onChange={handleInputChange}
+                    value={config.phone_1}></input>
+                </div>
+              </div>
+              <div className="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-12">
+                <div className="form-group">
+                  <label htmlFor="inputTitle">PHONE</label>
+                  <input type="phone" className="form-control" id="inputPhone"
+                    placeholder="Enter phone" 
+                    name="phone_2" onChange={handleInputChange}
+                    value={config.phone_2}></input>
+                </div>
+              </div>
+              <div className="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-12">
+                <div className="form-group">
+                  <label htmlFor="inputTitle">PHONE</label>
+                  <input type="phone" className="form-control" id="inputPhone"
+                    placeholder="Enter phone" 
+                    name="phone_3" onChange={handleInputChange}
+                    value={config.phone_3}></input>
+                </div>
+              </div>
+              <div className="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-12">
+                <div className="form-group">
+                  <label htmlFor="inputTitle">ADDRESS</label>
+                  <input type="address" className="form-control" id="inputAddress"
+                    placeholder="Enter address" 
+                    name="address" onChange={handleInputChange}
+                    value={config.address}></input>
                 </div>
               </div>
               <div className="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-12">
@@ -98,7 +169,7 @@ return
                   <label htmlFor="inputDetails">TWITTER</label>
                   <input type="text" className="form-control" id="inputDetails"
                     placeholder="Enter Details"
-                      name="details" onChange={handleInputChange}
+                      name="twitter" onChange={handleInputChange}
                     value={config.twitter}>
                     </input>
                 </div>
@@ -108,7 +179,7 @@ return
                   <label htmlFor="inputTitle">LINKEDIN</label>
                   <input type="text" className="form-control" id="inputText"
                     placeholder="Enter text" 
-                    name="title" onChange={handleInputChange}
+                    name="linkedin" onChange={handleInputChange}
                     value={config.linkedin}></input>
                 </div>
               </div>
@@ -117,7 +188,7 @@ return
                   <label htmlFor="inputTitle">INSTAGRAM</label>
                   <input type="text" className="form-control" id="inputText"
                     placeholder="Enter text" 
-                    name="title" onChange={handleInputChange}
+                    name="instagram" onChange={handleInputChange}
                     value={config.instagram}></input>
                 </div>
               </div>
@@ -126,7 +197,7 @@ return
                   <label htmlFor="inputTitle">FACEBOOK</label>
                   <input type="text" className="form-control" id="inputText"
                     placeholder="Enter text" 
-                    name="title" onChange={handleInputChange}
+                    name="facebook" onChange={handleInputChange}
                     value={config.facebook}></input>
                 </div>
               </div>
@@ -135,7 +206,7 @@ return
                   <label htmlFor="inputTitle">YOUTUBE</label>
                   <input type="text" className="form-control" id="inputText"
                     placeholder="Enter text" 
-                    name="title" onChange={handleInputChange}
+                    name="youtube" onChange={handleInputChange}
                     value={config.youtube}></input>
                 </div>
               </div>
@@ -151,7 +222,7 @@ type="submit" className="btn btn-primary"
      </div>
      <div>
 <button
-type="submit" className="btn btn-danger "
+type="submit" onClick={(e)=>DeleteConfig(e, config.id)} className="btn btn-danger "
          >Delete</button>
      </div>
      </div>
@@ -161,13 +232,14 @@ type="submit" className="btn btn-danger "
       
 ) : (
   <div>
-    <br />
-    <p>Please Wait...</p>
-  </div>
+          <br />
+          <h2 className="text-center text-danger">No Config Details, please Add Config Details ...</h2>
+          <Link to={'/addconfig'} className="btn btn-warning btn-sm float-end">Add Config</Link>
+        </div>
 )}
 
 </div>
-
+);
 
 }
 export default Config;
