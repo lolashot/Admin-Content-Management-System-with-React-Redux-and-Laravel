@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Button from '../ReUsables/Button'
 import StatisticsDataService  from "../Services/StatisticsServices";
 
 const AddStatistics = () => {
@@ -48,9 +48,12 @@ const AddStatistics = () => {
       {submitted ? (
         <div>
           <h4>You submitted successfully!</h4>
-          <button className="btn btn-success" onClick={newStatistic}>
-            Add
-          </button>
+          <Button
+              size='btn-sm'
+              textcolor='white'
+              color='btn-success'
+               text="Add Statistic"
+               onClick={newStatistic} />
         </div>
       ) : (
         <div>
@@ -80,9 +83,12 @@ const AddStatistics = () => {
             />
           </div>
 
-          <button onClick={saveStatistic} className="btn btn-success">
-            Submit
-          </button>
+          <Button
+              size='btn-sm'
+              textcolor='white'
+              color='btn-danger'
+               text="Submit"
+               onClick={saveStatistic} />
         </div>
       )}
     </div>

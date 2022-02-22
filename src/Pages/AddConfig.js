@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import {Link, } from 'react-router-dom';
+import Button from '../ReUsables/Button'
+
 
 
 
@@ -85,6 +87,8 @@ const AddConfig = () => {
         </div>
       ) : (
         <div>
+                            <Link to={'/config'} className="btn btn-warning btn-sm float-end">Config</Link>
+
                     <h2 className="text-info text-center">ADD Config!</h2>
 
           <div className="form-group">
@@ -268,10 +272,13 @@ const AddConfig = () => {
               name="linkedin"
             />
           </div>
-
-          <button onClick={saveConfig} className="btn btn-success">
-            Submit
-          </button>
+      
+          <Button
+              size='btn-sm'
+              textcolor='white'
+              color='btn-warning'
+               text="Submit"
+               onClick={saveConfig} />
         </div>
       )}
     </div>

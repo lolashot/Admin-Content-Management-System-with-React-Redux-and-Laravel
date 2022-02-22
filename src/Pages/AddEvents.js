@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import EventsDataService  from "../Services/EventsService";
 import {Link, } from 'react-router-dom';
+import Button from '../ReUsables/Button'
+
 
 const AddEvent  = () => {
   const initialEventState = {
@@ -55,13 +57,19 @@ const AddEvent  = () => {
     <div className="submit-form">
       {submitted ? (
         <div>
-          <h4>You submitted successfully!</h4>
-          <button className="btn btn-success" onClick={newEvent}>
-            Add
-          </button>
+                  <h4>You submitted successfully!</h4>
+                  
+
+        <div className="d-flex justify-content-between">
+          <Button
+              size='btn-sm'
+              textcolor='white'
+              color='btn-warning'
+               text="Add Event"
+               onClick={newEvent} />
           <Link to={'/events'} className="btn btn-warning btn-sm float-end">Events</Link>
 
-        </div>
+        </div></div>
       ) : (
         <div>
           <div className="form-group">
@@ -114,9 +122,12 @@ const AddEvent  = () => {
             />
       </div>*/}
 
-          <button onClick={saveEvent} className="btn btn-success">
-            Submit
-          </button>
+<Button
+              size='btn-sm'
+              textcolor='white'
+              color='btn-warning'
+               text="Submit"
+               onClick={saveEvent} />
         </div>
       )}
     </div>

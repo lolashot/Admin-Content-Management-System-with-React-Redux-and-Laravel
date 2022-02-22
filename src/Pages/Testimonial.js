@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import TestimonialDataService from "../Services/TestimonialServices";
 import {Link, } from 'react-router-dom';
+import Button from '../ReUsables/Button'
+import swal from 'sweetalert';
+
+
 
 function Testimonial() {
     const [loading, setLoading] = useState(true);
@@ -31,7 +35,8 @@ function Testimonial() {
     const MAX_LENGTH = 120;
 
     const deleteTestimonial = (e, id) => {
-        e.preventDefault(); 
+        e.preventDefault();
+        swal("Confirm","Are you sure you want to Delete","confirm"); 
         const thisClicked = e.currentTarget;
         thisClicked.innerText = "Deleting";
         TestimonialDataService.remove(id)
@@ -43,6 +48,8 @@ function Testimonial() {
           .catch(e => {
             console.log(e);
             thisClicked.innerText = "error";
+            swal("Error","Not Deleted","error");
+
     
           });
       };
@@ -62,10 +69,12 @@ else
 
       <div class="row gutters">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <div class="card">
-                  <div class="card-body">
+          <div class="card border-warning">
+        <div class="card-header bg-warning">Testimonials</div>
+          <div class="card-body text-danger">
+          <h5 class="card-title">Testimonial Table</h5>
                       <div class="table-responsive">
-                          <table class="table table-bordered table-dark m-0 text-center">
+                          <table class="table table-bordered table-stripped m-0 text-center">
                               <thead>
                                   <tr>
                                       <th>ID</th>

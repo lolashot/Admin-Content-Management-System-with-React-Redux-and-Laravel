@@ -1,5 +1,6 @@
 import React,  { useState, useEffect } from 'react';
 import { Link, } from 'react-router-dom';
+import Button from '../ReUsables/Button'
 
 
 import StatisticsDataService from "../Services/StatisticsServices";
@@ -60,10 +61,12 @@ else
 
                 <div class="row gutters">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="card">
-                            <div class="card-body">
+                    <div class="card border-warning">
+        <div class="card-header bg-warning">Statistics</div>
+          <div class="card-body text-primary">
+          <h5 class="card-title">Users Table</h5>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-dark m-0 text-center">
+                                    <table class="table table-bordered table-stripped m-0 text-center">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>

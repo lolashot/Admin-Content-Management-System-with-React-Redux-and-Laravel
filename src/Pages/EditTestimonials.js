@@ -5,7 +5,8 @@ import TestimonialsDataService from "../Services/TestimonialServices";
 
 import { Routes, Route, Link, useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import swal from 'sweetalert-react';
+import Button from '../ReUsables/Button'
+
 
 
 
@@ -132,11 +133,14 @@ function EditTestimonial() {
                     </div>
                     </div>
                     </form>
-                    <div className="d-flex">
+                    <div className="d-flex justify-content-between">
         <div>
- <button type="submit" className="btn btn-primary"
-               onClick={updateTestimonial}
-               >Update Testimonial</button>
+        <Button
+              size='btn-sm'
+              textcolor='white'
+              color='btn-primary'
+               text="Update Testimonial"
+               onClick={updateTestimonial} />
                <p>{message}</p>
            </div>
            <div>

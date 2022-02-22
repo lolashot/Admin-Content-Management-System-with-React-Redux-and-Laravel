@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import EventsDataService from "../Services/EventsService";
 import countAllEvents from "../Utils/topcardsutils";
 import UpcomingDataService from "../Services/UpcomingEventsServices";
+import TopCard from './TopCard'
+
 
 
 
@@ -45,48 +47,36 @@ function TopCards() {
     <div> 
 			<div className="row gutters">
 						<div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
-							<div className="info-stats2">
-								<div className="info-icon info">
-									<i className="icon-eye1"></i>
-								</div>
-								<div className="sale-num">
-									<h3>{events}</h3>
-									<p>Total Events</p>
-								</div>
-							</div>
+							<TopCard
+							 color='info-icon info'
+							 total="Total Events"
+							 icon='icon-eye1'
+							 events={events}
+							 />
 						</div>
 						<div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
-							<div className="info-stats2">
-								<div className="info-icon danger">
-									<i className="icon-shopping-cart1"></i>
-								</div>
-								<div className="sale-num">
-									<h3>{upcomingevents}</h3>
-									<p>UpcomingEvents</p>
-								</div>
-							</div>
+						<TopCard
+							 color='info-icon danger'
+							 total="Upcoming Event(s)"
+							 icon='icon-shopping-cart1'
+							 events={upcomingevents}
+							 />
 						</div>
 						<div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
-							<div className="info-stats2">
-								<div className="info-icon warning">
-									<i className="icon-shopping-bag1"></i>
-								</div>
-								<div className="sale-num">
-									<h3>43,456</h3>
-									<p>Users</p>
-								</div>
-							</div>
+						<TopCard
+							 color='info-icon warning'
+							 total="Total Users"
+							 icon='icon-shopping-bag1'
+							 events="3456"
+							 />
 						</div>
 						<div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
-							<div className="info-stats2">
-								<div className="info-icon success">
-									<i className="icon-activity"></i>
-								</div>
-								<div className="sale-num">
-									<h3>29,425</h3>
-									<p>Expenses</p>
-								</div>
-							</div>
+						<TopCard
+							 color='info-icon success'
+							 total="Total"
+							 icon='icon-activity'
+							 events="1000"
+							 />
 						</div>
 					</div>
 </div>

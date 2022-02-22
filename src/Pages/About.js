@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {Link, useNavigate } from 'react-router-dom';
 import AboutDataService from "../Services/AboutService";
+import Button from '../ReUsables/Button'
+
 
 
 function About() {
@@ -129,20 +131,24 @@ else
                   
                     </div>
                     </form>
-                    <div className="d-flex">
+                    <div className="d-flex justify-content-between">
         <div>
- <button 
- type="submit" className="btn btn-primary"
-               onClick={updateAbout}
-               >Update About</button>
+              <Button
+              size='btn-sm'
+              textcolor='white'
+              color='btn-warning'
+               text="Update About"
+               onClick={updateAbout} />
                <p>{message}</p>
            </div>
            <div>
- <button
-  type="submit"  onClick={(e)=>deleteAbout(e, about.id)} className="btn btn-danger "
-               >Delete</button>
-               <p></p>
-
+           <Button
+              size='btn-sm'
+              textcolor='red'
+              color='btn-info'
+               text="Delete About"
+               onClick={(e)=>deleteAbout(e, about.id)} />
+               
            </div>
            </div>
 

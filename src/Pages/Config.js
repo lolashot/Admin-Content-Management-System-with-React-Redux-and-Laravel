@@ -2,6 +2,10 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom';
 import ConfigDataService from "../Services/ConfigService";
+import Button from '../ReUsables/Button'
+
+
+
 
 function Config() {
   let navigate = useNavigate();
@@ -66,7 +70,7 @@ const [message, setMessage] = useState("");
       
  };
 
- const DeleteConfig = (e, id) => {
+ const deleteConfig = (e, id) => {
   e.preventDefault();
     ConfigDataService.remove(config.id)
       .then(response => {
@@ -76,6 +80,7 @@ const [message, setMessage] = useState("");
         // props.history.push("/tutorials");
       })
       .catch(e => {
+
         console.log(e);
       });
   };
@@ -212,18 +217,23 @@ return (
               </div>
               </div>
               </form>
-              <div className="d-flex">
+              <div className="d-flex justify-content-between">
   <div>
-<button 
-type="submit" className="btn btn-primary"
-         onClick={updateConfig}
-         >Update Config</button>
+  <Button
+              size='btn-sm'
+              textcolor='white'
+              color='btn-primary'
+               text="Update Config"
+               onClick={updateConfig} />
          <p>{message}</p>
      </div>
      <div>
-<button
-type="submit" onClick={(e)=>DeleteConfig(e, config.id)} className="btn btn-danger "
-         >Delete</button>
+     <Button
+              size='btn-sm'
+              textcolor='white'
+              color='btn-info'
+               text="Delete"
+               onClick={(e)=>deleteConfig(e, config.id)} />
      </div>
      </div>
 

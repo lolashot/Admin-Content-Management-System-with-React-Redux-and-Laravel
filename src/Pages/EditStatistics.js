@@ -5,7 +5,8 @@ import StatisticsDataService from "../Services/StatisticsServices";
 
 import { Routes, Route, Link, useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import swal from 'sweetalert-react';
+import Button from '../ReUsables/Button'
+
 
 
 
@@ -114,11 +115,14 @@ function EditStatistics() {
                   
                     </div>
                     </form>
-                    <div className="d-flex">
+                    <div className="d-flex justify-content-between">
         <div>
- <button type="submit" className="btn btn-primary"
-               onClick={updateStatistic}
-               >Update Statistics</button>
+ <Button
+              size='btn-sm'
+              textcolor='white'
+              color='btn-warning'
+               text="Update Statistics"
+               onClick={updateStatistic} />
                <p>{message}</p>
            </div>
            <div>

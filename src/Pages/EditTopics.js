@@ -1,7 +1,7 @@
  
 import React, { useState, useEffect } from 'react';
 
-import ServicesDataService from "../Services/ServicesComp";
+import TopicDataService from "../Services/TopicService";
 
 import { Routes, Route, Link, useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
@@ -10,28 +10,28 @@ import Button from '../ReUsables/Button'
 
 
 
-function EditServices() {
+function EditTopics() {
   let params = useParams();
   let navigate = useNavigate();
 
 
-  const initialServiceDetailsState = {
+  const initialTopicDetailsState = {
     id: null,
     title: "",
     date: "",
     details: ""
   };
-  const [currentservice, setCurrentService] = useState(initialServiceDetailsState);
+  const [currenttopic, setCurrentTopic] = useState(initialTopicDetailsState);
   const [message, setMessage] = useState("");
 
 
-  const getServiceDetails = id => {
-    ServicesDataService.get(id)
+  const getTopicDetails = id => {
+    TopicDataService.get(id)
       .then(response => {
-        console.log("service", response);
-        setCurrentService(response.data);
+        console.log("topic", response);
+        setCurrentTopic(response.data);
       
-        console.log("services", currentservice);
+        console.log("topics", currentservice);
       })
       .catch(e => {
         console.log(e);
@@ -40,23 +40,23 @@ function EditServices() {
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-    setCurrentService({ ...currentservice, [name]: value });
+    setCurrentTopic({ ...currenttopic, [name]: value });
   };
 
 
   useEffect(() => {
-    getServiceDetails(params.id);
+    getTopiceDetails(params.id);
   }, [params.id]);
 
 
-  const updateService = (e) => {
+  const updateTopic = (e) => {
     e.preventDefault();
 
-    ServicesDataService.update(currentservice.id, currentservice)
+    TopicDataService.update(currenttopic.id, currenttopic)
       .then(response => {
-        console.log( "service", response.data);
-        setMessage("The Service was updated successfully!");
-        console.log( "services", message);
+        console.log( "topic", response.data);
+        setMessage("The Topic was updated successfully!");
+        console.log( "topic", message);
 
       })
       .catch(e => {
@@ -66,19 +66,29 @@ function EditServices() {
 
  };
 
-  
+ const retrieveS = () => {
+    EventsDataService.getAll()
+      .then(response => {
+        console.log("events", response);
+        setEvents(response.data)
+        setLoading(false);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
   return (
     <div className="container">
 
       <div>
-        <Link to={'/addservice'} className="btn btn-warning btn-sm float-end"> Add Service</Link>
+        <Link to={'/events'} className="btn btn-warning btn-sm float-end"> Add events</Link>
       </div>
-      {currentservice ? (
+      {currenttopic ? (
 
             <div className="card">
               <div className="card-body">
-              <form onSubmit={updateService} >
+              <form onSubmit={updateTopic} >
 
                 <div className="row gutters">
 
@@ -88,7 +98,7 @@ function EditServices() {
                         <input type="text" className="form-control" id="inputTitle"
                           placeholder="Enter full name" 
                           name="title" onChange={handleInputChange}
-                          value={currentservice.title}></input>
+                          value={currenttopic.title}></input>
                       </div>
                     </div>
                     <div className="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-12">
@@ -97,7 +107,7 @@ function EditServices() {
                         <input type="id" className="form-control" id="inputId"
                           placeholder="Enter Id"
                            name="id" onChange={handleInputChange}
-                          value={currentservice.id}>
+                          value={currenttopic.id}>
                           </input>
                       </div>
                     </div>
@@ -108,7 +118,7 @@ function EditServices() {
                         <input type="text" className="form-control" id="inputDetails"
                           placeholder="Enter Details"
                             name="details" onChange={handleInputChange}
-                          value={currentservice.details}>
+                          value={currenttopic.details}>
                           </input>
                       </div>
                     </div>
@@ -120,15 +130,15 @@ function EditServices() {
         <Button
               size='btn-sm'
               textcolor='white'
-              color='btn-primary'
-               text="Update Service"
-               onClick={updateService} />
+              color='btn-success'
+               text="Update Topic"
+               onClick={updateTopic} />
                <p>{message}</p>
            </div>
            <div>
- <Link to ="/services"
+ <Link to ="/events"
   type="submit" className="btn btn-danger "
-               >All Services</Link>
+               >All Events</Link>
            </div>
            </div>
 
@@ -138,7 +148,7 @@ function EditServices() {
       ) : (
         <div>
           <br />
-          <p>Please Click on an Service...</p>
+          <p>Please Click on a Topic...</p>
         </div>
       )}
 
@@ -147,4 +157,4 @@ function EditServices() {
 
 }
 
-export default EditServices;
+export default EditTopics;

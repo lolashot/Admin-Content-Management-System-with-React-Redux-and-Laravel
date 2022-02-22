@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import {Link, } from 'react-router-dom';
+import Button from '../ReUsables/Button'
+
 
 
 
@@ -50,7 +52,6 @@ const AddAbout = () => {
       {submitted ? (
         <div>
           <h4>You submitted successfully!</h4>
-        
           <Link to={'/about'} className="btn btn-warning btn-sm float-end">About</Link>
         </div>
       ) : (
@@ -82,10 +83,12 @@ const AddAbout = () => {
               name="details"
             />
           </div>
-
-          <button onClick={saveAbout} className="btn btn-success">
-            Submit
-          </button>
+          <Button
+              size='btn-sm'
+              textcolor='white'
+              color='btn-warning'
+               text="Submit About"
+               onClick={saveAbout} />
         </div>
       )}
     </div>
