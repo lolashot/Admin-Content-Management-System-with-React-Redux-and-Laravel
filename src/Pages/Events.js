@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, } from 'react-router-dom';
 import EventsDataService from "../Services/EventsService";
 import Button from '../ReUsables/Button'
-
-
-
-
+import swal from 'sweetalert';
 
 
 function Events() {
@@ -32,23 +29,30 @@ function Events() {
 
     const deleteEvent = (e, id) => {
         e.preventDefault(); 
-        const thisClicked = e.currentTarget;
-        thisClicked.innerText = "Deleting";
-        EventsDataService.remove(id)
-        .then(response => {
-            console.log("delete", response.data);
-            setEvents(events.filter((event) => event.id !== id))
-            // props.history.push("/tutorials");
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
           })
-          .catch(e => {
-            console.log(e);
-            thisClicked.innerText = "error";
+          .then((willDelete) => {
+            if (willDelete) {
+                EventsDataService.remove(id)
+                .then(response => {
+                    console.log("delete", response.data);
+                         swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                      });
+                    setEvents(events.filter((event) => event.id !== id)) 
+                });
+            }
+             else  {
+              swal("Your imaginary file is safe!");
+            }
+     }) 
+    };
 
-          });
-      };
-
-
-    
 
     if (loading) {
         return <h4>Loading Events...</h4>

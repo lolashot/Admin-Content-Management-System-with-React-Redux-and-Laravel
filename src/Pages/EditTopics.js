@@ -1,8 +1,7 @@
  
 import React, { useState, useEffect } from 'react';
-
 import TopicDataService from "../Services/TopicService";
-
+import SpeakersDataService from "../Services/SpeakerService";
 import { Routes, Route, Link, useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Button from '../ReUsables/Button'
@@ -23,6 +22,9 @@ function EditTopics() {
   };
   const [currenttopic, setCurrentTopic] = useState(initialTopicDetailsState);
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [speakers, setSpeakers] = useState([]);
+
 
 
   const getTopicDetails = id => {
@@ -31,7 +33,19 @@ function EditTopics() {
         console.log("topic", response);
         setCurrentTopic(response.data);
       
-        console.log("topics", currentservice);
+        console.log("topics", currenttopic);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
+  const retrieveSpeakers = () => {
+    SpeakersDataService.getAll()
+      .then(response => {
+        console.log("speakers", response);
+        setSpeakers(response.data)
+        setLoading(false);
       })
       .catch(e => {
         console.log(e);
@@ -45,7 +59,8 @@ function EditTopics() {
 
 
   useEffect(() => {
-    getTopiceDetails(params.id);
+    getTopicDetails(params.id);
+    retrieveSpeakers();
   }, [params.id]);
 
 
@@ -66,17 +81,23 @@ function EditTopics() {
 
  };
 
- const retrieveS = () => {
-    EventsDataService.getAll()
-      .then(response => {
-        console.log("events", response);
-        setEvents(response.data)
-        setLoading(false);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+ const deleteSpeakers = (e, id) => {
+  e.preventDefault();
+  const thisClicked = e.currentTarget;
+  thisClicked.innerText = "Deleting";
+  SpeakersDataService.remove(id)
+    .then(response => {
+      console.log("delete", response.data);
+      setSpeakers(speakers.filter((speaker) => speaker.id !== id))
+      // props.history.push("/tutorials");
+    })
+    .catch(e => {
+      console.log(e);
+      thisClicked.innerText = "error";
+
+    });
+};
+
 
   return (
     <div className="container">
@@ -152,6 +173,99 @@ function EditTopics() {
         </div>
       )}
 
+      {/* <!-- Button trigger modal --> */}
+      <button type="button" className="btn btn-info" data-toggle="modal" data-target="#customModalTwo">
+        Add Speakers To Event
+      </button>
+      {/* <!-- Modal --> */}
+      <div className="modal fade" id="customModalTwo" tabindex="-1" role="dialog" aria-labelledby="customModalTwoLabel" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="customModalTwoLabel">Speakers</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <form>
+                <div className="form-group">
+                  <input type="hidden" className="form-control" readonly id="inputTitle"
+                    placeholder="Enter full name"
+                    name="id" onChange={handleInputChange}
+                    value={speakers.id}></input>
+                </div>
+
+                <div className="form-group">
+                  <label for="recipient-name" className="col-form-label">Name:</label>
+                  <input type="text" className="form-control" id="recipient-name" />
+                </div>
+                <div class="form-group">
+                  <label for="message-text" className="col-form-label">Qualification:</label>
+                  <textarea className="form-control" id="message-text"></textarea>
+                </div>
+              </form>
+            </div>
+            <div className="modal-footer custom">
+
+              <div className="left-side">
+                <button type="button" class="btn btn-link danger" data-dismiss="modal">Cancel</button>
+              </div>
+              <div className="divider"></div>
+              <div className="right-side">
+                <button type="button" className="btn btn-link success">Send Message</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      {/* Table for all speakers in event */}
+
+
+
+
+      <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered table-dark m-0 text-center">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Title</th>
+                      <th>Details</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {speakers.map((speaker, index) => (
+
+                      <tr key={index}>
+                        <td>{speaker.id}</td>
+                        <td>{speaker.title}</td>
+                        <td>{speaker.details}</td>
+                        <td>{speaker.date}</td>
+                        <td>{speaker.status}</td>
+                        <td>
+                          <div className="text-center">
+                            <Link to={`/editspeakers/${speaker.id}`}><span class="icon-pencil"></span></Link>
+                            <span onClick={(e) => deleteSpeakers(e, speaker.id)} class="icon-trash-2"></span>
+                          </div>
+                        </td>
+                        </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     );
 

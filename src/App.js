@@ -25,6 +25,8 @@ import AddAbout from './Pages/AddAbout'
 import AddEvent from './Pages/AddEvents' 
 import AddStatistics from './Pages/AddStatistics'
 import AddConfig from './Pages/AddConfig' 
+import EditSpeakers from './Pages/EditSpeakers';
+import EditTopics from './Pages/EditTopics';
 
 
 
@@ -69,6 +71,10 @@ function App() {
         <Route exact path="/addevents" element={<AddEvent />} />
         <Route exact path="/addstatistics" element={<AddStatistics />} />
         <Route exact path="/addconfig" element={<AddConfig />} />
+        <Route exact path="/edittopics" element={<EditTopics />} />
+        <Route exact path="/editspeakers" element={<EditSpeakers />} />
+
+
 
 
 

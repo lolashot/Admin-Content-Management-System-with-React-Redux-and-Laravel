@@ -1,8 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-
 import EventsDataService from "../Services/EventsService";
-
+import TopicDataService from "../Services/TopicService";
 import { Routes, Route, Link, useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Button from '../ReUsables/Button'
@@ -14,7 +13,6 @@ function EditEvents() {
   let params = useParams();
   let navigate = useNavigate();
 
-
   const initialEventDetailsState = {
     id: null,
     title: "",
@@ -23,13 +21,8 @@ function EditEvents() {
   };
   const [currentevent, setCurrentEvent] = useState(initialEventDetailsState);
   const [message, setMessage] = useState("");
-
   const [loading, setLoading] = useState(true);
-
-
-  const [events, setEvents] = useState([]);
-
-
+  const [topics, setTopics] = useState([]);
 
   const getEventDetails = id => {
     EventsDataService.get(id)
@@ -44,11 +37,11 @@ function EditEvents() {
       });
   };
 
-  const retrieveEvents = () => {
-    EventsDataService.getAll()
+  const retrieveTopics = () => {
+    TopicDataService.getAll()
       .then(response => {
-        console.log("events", response);
-        setEvents(response.data)
+        console.log("topic", response);
+        setTopics(response.data)
         setLoading(false);
       })
       .catch(e => {
@@ -64,7 +57,7 @@ function EditEvents() {
 
   useEffect(() => {
     getEventDetails(params.id);
-    retrieveEvents();
+    retrieveTopics();
   }, [params.id]);
 
 
@@ -85,14 +78,14 @@ function EditEvents() {
 
 
 
-  const deleteEvent = (e, id) => {
+  const deleteTopics = (e, id) => {
     e.preventDefault();
     const thisClicked = e.currentTarget;
     thisClicked.innerText = "Deleting";
-    EventsDataService.remove(id)
+    TopicDataService.remove(id)
       .then(response => {
         console.log("delete", response.data);
-        setEvents(events.filter((event) => event.id !== id))
+        setTopics(topics.filter((topic) => topic.id !== id))
         // props.history.push("/tutorials");
       })
       .catch(e => {
@@ -199,7 +192,7 @@ function EditEvents() {
                   <input type="hidden" className="form-control" readonly id="inputTitle"
                     placeholder="Enter full name"
                     name="id" onChange={handleInputChange}
-                    value={currentevent.id}></input>
+                    value={topics.id}></input>
                 </div>
 
                 <div className="form-group">
@@ -249,71 +242,21 @@ function EditEvents() {
                     </tr>
                   </thead>
                   <tbody>
-                    {events.map((event, index) => (
+                    {topics.map((topic, index) => (
 
                       <tr key={index}>
-                        <td>{event.id}</td>
-                        <td>{event.title}</td>
-                        <td>{event.details}</td>
-                        <td>{event.date}</td>
-                        <td>{event.status}</td>
+                        <td>{topic.id}</td>
+                        <td>{topic.title}</td>
+                        <td>{topic.details}</td>
+                        <td>{topic.date}</td>
+                        <td>{topic.status}</td>
                         <td>
                           <div className="text-center">
-                            <Link to={`/edittopic/${event.id}`}><span class="icon-pencil"></span></Link>
-                            <span onClick={(e) => deleteEvent(e, event.id)} class="icon-trash-2"></span>
+                            <Link to={`/edittopic/${topic.id}`}><span class="icon-pencil"></span></Link>
+                            <span onClick={(e) => deleteTopics(e, topic.id)} class="icon-trash-2"></span>
                           </div>
                         </td>
-
-
-
-
-
-                        <div className="modal fade" id="updateATopic" tabindex="-1" role="dialog" aria-labelledby="updateATopicLabel" aria-hidden="true">
-                          <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                              <div className="modal-header">
-                                <h5 className="modal-title" id="updateATopicLabel">{event.title}</h5>
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div className="modal-body">
-                                <form>
-                                  <div className="form-group">
-                                    <input type="text" className="form-control" readonly id="inputTitle"
-                                      placeholder="Enter full name"
-                                      name="id" onChange={handleInputChange}
-                                      value={event.id}></input>
-                                  </div>
-
-                                  <div className="form-group">
-                                    <label for="recipient-name" className="col-form-label">{event.title} </label>
-                                    <input type="text" className="form-control" id="recipient-name" />
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="message-text" className="col-form-label">Message:</label>
-                                    <textarea className="form-control" id="message-text"></textarea>
-                                  </div>
-                                </form>
-                              </div>
-                              <div className="modal-footer custom">
-
-                                <div className="left-side">
-                                  <button type="button" class="btn btn-link danger" data-dismiss="modal">Cancel</button>
-                                </div>
-                                <div className="divider"></div>
-                                <div className="right-side">
-                                  <button type="button" className="btn btn-link success">Send Message</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-
-
-
-                      </tr>
+                    </tr>
                     ))}
                   </tbody>
                 </table>

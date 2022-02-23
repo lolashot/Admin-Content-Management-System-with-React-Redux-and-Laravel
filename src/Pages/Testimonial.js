@@ -10,8 +10,6 @@ function Testimonial() {
     const [loading, setLoading] = useState(true);
     const [testimonials, setTestimonials] = useState([]);
 
-
-
     useEffect(() => {
         retrieveTestimonial();
     }, []);

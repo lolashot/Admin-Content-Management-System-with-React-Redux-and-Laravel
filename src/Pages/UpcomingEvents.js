@@ -73,7 +73,7 @@ else
                                                     <td>{upcomingevent.date}</td>
                                                     <td>
                                                         <div className="text-center">
-                                                            <Link to={`/editupcomingevent/${upcomingevent.id}`}><span class="icon-pencil"></span></Link>
+                                                            <Link to={`/editevents/${upcomingevent.id}`}><span class="icon-pencil"></span></Link>
                                                             <span class="icon-trash-2"></span>
                                                         </div>
                                                     </td>
