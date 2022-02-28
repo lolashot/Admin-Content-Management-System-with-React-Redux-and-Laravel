@@ -1,21 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { Link, } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import EventsDataService from "../Services/EventsService";
 import Button from '../ReUsables/Button'
 import swal from 'sweetalert';
+import AuthService from "../Services/Auth/auth.service";
+
 
 
 function Events() {
+    let navigate = useNavigate();
+
     const [loading, setLoading] = useState(true);
     const [events, setEvents] = useState([]);
+    const [currentUser, setCurrentUser] = useState(undefined);
+
 
 
     useEffect(() => {
-        retrieveEvents();
+        const user = AuthService.getCurrentUser();
+
+        if (user) {
+            retrieveEvents();
+        } else {
+            navigate("/login");
+
+        }
 
     }, []);
 
     const retrieveEvents = () => {
+        
         EventsDataService.getAll()
             .then(response => {
                 console.log("events", response);
@@ -25,6 +39,7 @@ function Events() {
             .catch(e => {
                 console.log(e);
             });
+       
     };
 
     const deleteEvent = (e, id) => {

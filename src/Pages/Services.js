@@ -9,8 +9,6 @@ function Services() {
     const [loading, setLoading] = useState(true);
     const [services, setServices] = useState([]);
 
-    
-
     useEffect(() => {
     retrieveService();
   }, []);

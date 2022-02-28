@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Button from '../ReUsables/Button'
+import {Link, } from 'react-router-dom';
 import StatisticsDataService  from "../Services/StatisticsServices";
 
 const AddStatistics = () => {
@@ -46,6 +47,7 @@ const AddStatistics = () => {
    return (
     <div className="submit-form">
       {submitted ? (
+        <div className="d-flex justify-content-between">
         <div>
           <h4>You submitted successfully!</h4>
           <Button
@@ -55,6 +57,8 @@ const AddStatistics = () => {
                text="Add Statistic"
                onClick={newStatistic} />
         </div>
+                <Link to={'/statistics'} className="btn btn-warning btn-sm float-end"> Statistics</Link>
+</div>
       ) : (
         <div>
           <div className="form-group">
@@ -82,13 +86,15 @@ const AddStatistics = () => {
               name="value"
             />
           </div>
-
+<div className="d-flex justify-content-between">
           <Button
               size='btn-sm'
               textcolor='white'
               color='btn-danger'
                text="Submit"
                onClick={saveStatistic} />
+                       <Link to={'/statistics'} className="btn btn-warning btn-sm float-end"> Statistics</Link>
+</div>
         </div>
       )}
     </div>

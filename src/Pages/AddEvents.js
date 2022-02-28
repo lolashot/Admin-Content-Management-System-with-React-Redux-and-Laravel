@@ -121,13 +121,15 @@ const AddEvent  = () => {
               name="status"
             />
       </div>*/}
-
+<div className="d-flex justify-content-between">
 <Button
               size='btn-sm'
               textcolor='white'
               color='btn-warning'
                text="Submit"
                onClick={saveEvent} />
+                         <Link to={'/events'} className="btn btn-warning btn-sm float-end">Events</Link>
+</div>
         </div>
       )}
     </div>

@@ -20,8 +20,6 @@ function Testimonial() {
                 console.log("tutossssr", response);
                 setTestimonials(response.data.data);
                 // const lastTwo = cars.slice(-2);
-
-
                 setLoading(false);
                 console.log("about", response.data);
             })
@@ -61,7 +59,7 @@ else
 
       <div>
       <div className="row">
-          <Link to={'/addtestimonial'} className="btn btn-primary btn-sm float-end"> Add  TESTIMONIALS</Link>
+          <Link to={'/addtestimonials'} className="btn btn-primary btn-sm float-end"> Add  TESTIMONIALS</Link>
       </div>
 
 
