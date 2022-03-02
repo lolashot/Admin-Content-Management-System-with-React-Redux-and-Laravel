@@ -1,20 +1,25 @@
 import React, { useState } from "react";
-import {Link, } from 'react-router-dom';
+import {Link,  useNavigate} from 'react-router-dom';
 import Button from '../ReUsables/Button'
-
-
+import AuthService from "../Services/Auth/auth.service";
 
 
 import AboutDataService  from "../Services/AboutService";
 
 const AddAbout = () => {
+  let navigate = useNavigate();
+
   const initialAboutState = {
     id: null,
     title: "",
     details: ""
   };
+  const userr = AuthService.getCurrentUser();
+
   const [about, setAbout] = useState(initialAboutState);
   const [submitted, setSubmitted] = useState(false);
+  const [user, setUser] = useState(userr);
+
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -47,6 +52,9 @@ const AddAbout = () => {
     setSubmitted(false);
   };
 
+      
+if (user) {   
+      
    return (
     <div className="submit-form">
       {submitted ? (
@@ -92,7 +100,12 @@ const AddAbout = () => {
         </div>
       )}
     </div>
+
   );
+} else {
+  navigate("/login");
+
+}
 };
 
 export default AddAbout

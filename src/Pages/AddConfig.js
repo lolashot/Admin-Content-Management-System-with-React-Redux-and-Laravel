@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import {Link, } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Button from '../ReUsables/Button'
-
-
-
+import AuthService from "../Services/Auth/auth.service";
 
 import ConfigDataService  from "../Services/ConfigService";
 
 const AddConfig = () => {
-  
+  let navigate = useNavigate();
+
     const initialConfigState = {
       id: null,
      title: "",
@@ -26,9 +25,18 @@ const AddConfig = () => {
      youtube: "",
      instagram: ""
     };
+    const userr = AuthService.getCurrentUser();
+
   
   const [config, setConfig] = useState(initialConfigState);
   const [submitted, setSubmitted] = useState(false);
+  const [user, setUser] = useState(userr);
+
+  if (!user) {
+    alert('please login')
+    navigate("/login");
+    return
+  }
 
   const handleInputChange = event => {
     const { name, value } = event.target;

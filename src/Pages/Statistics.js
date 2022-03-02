@@ -1,11 +1,14 @@
 import React,  { useState, useEffect } from 'react';
-import { Link, } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../ReUsables/Button'
+import AuthService from "../Services/Auth/auth.service";
+
 
 
 import StatisticsDataService from "../Services/StatisticsServices";
 
 function Statistics() {
+    let navigate = useNavigate();
 
     const [loading, setLoading] = useState(true);
     const [statistics, setStatistics] = useState([]);
@@ -13,8 +16,16 @@ function Statistics() {
     
 
     useEffect(() => {
-    retrieveStatistics();
-  }, []);
+        const user = AuthService.getCurrentUser();
+  
+        if (user) {
+            retrieveStatistics();
+        } else {
+            navigate("/login");
+  
+        }
+  
+    }, []);
 
     const retrieveStatistics = () => {
     StatisticsDataService.getAll()

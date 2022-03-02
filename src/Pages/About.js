@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Link, useNavigate } from 'react-router-dom';
 import AboutDataService from "../Services/AboutService";
 import Button from '../ReUsables/Button'
-
+import AuthService from "../Services/Auth/auth.service";
 
 
 function About() {
@@ -21,7 +21,15 @@ function About() {
   
 
     useEffect(() => {
-    retrieveAbout();
+      const user = AuthService.getCurrentUser();
+
+      if (user) {
+          retrieveAbout();
+      } else {
+          navigate("/login");
+
+      }
+
   }, []);
 
     const retrieveAbout = () => {

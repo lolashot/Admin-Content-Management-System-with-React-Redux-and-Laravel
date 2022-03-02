@@ -1,19 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import TestimonialDataService from "../Services/TestimonialServices";
-import {Link, } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Button from '../ReUsables/Button'
 import swal from 'sweetalert';
+import AuthService from "../Services/Auth/auth.service";
+
 
 
 
 function Testimonial() {
+    let navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [testimonials, setTestimonials] = useState([]);
 
     useEffect(() => {
-        retrieveTestimonial();
+        const user = AuthService.getCurrentUser();
+  
+        if (user) {
+            retrieveTestimonial();
+        } else {
+            navigate("/login");
+  
+        }
+  
     }, []);
-
     const retrieveTestimonial = () => {
         TestimonialDataService.getAll()
             .then(response => {

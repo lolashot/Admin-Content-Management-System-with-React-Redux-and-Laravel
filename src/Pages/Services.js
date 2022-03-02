@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Link, } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ServiceDataService from "../Services/ServicesComp";
 import Button from '../ReUsables/Button'
+import AuthService from "../Services/Auth/auth.service";
+
 
 
 function Services() {
+    let navigate = useNavigate();
 
     const [loading, setLoading] = useState(true);
     const [services, setServices] = useState([]);
 
     useEffect(() => {
-    retrieveService();
-  }, []);
-
+        const user = AuthService.getCurrentUser();
+  
+        if (user) {
+            retrieveService();
+        } else {
+            navigate("/login");
+  
+        }
+  
+    }, []);
     const retrieveService = () => {
     ServiceDataService.getAll()
       .then(response => {

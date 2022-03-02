@@ -1,23 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { Link, } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
+import GalleryDataService from "../Services/GalleryService";
+import AuthService from "../Services/Auth/auth.service";
+
 
 function Gallery () {
+  let navigate = useNavigate();
+
     const [loading, setLoading] = useState(true);
     const [gallery, setGallery] = useState([]);
 
     useEffect(() => {
+      const user = AuthService.getCurrentUser();
 
-        // axios.get(`/api/students`).then(res=>{
-        //     if(res.status === 200)
-        //     { 
-        //         setStudents(res.data.students)
-        //         setLoading(false);
-        //     }
-        // });
+      if (user) {
+          retrieveGallery();
+      } else {
+          navigate("/login");
 
-    }, []);
+      }
 
-    
+  }, []);
+
+  const retrieveGallery = () => {
+    GalleryDataService.getAll()
+      .then(response => {
+       console.log("gallery", response);
+        setGallery(response.data);
+
+        setLoading(false);
+        console.log("about", response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
     return (
         <div className="table-responsive scrollbar" style={{marginLeft:"200px",}}>

@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom';
 import ConfigDataService from "../Services/ConfigService";
 import Button from '../ReUsables/Button'
+import AuthService from "../Services/Auth/auth.service";
 
 
 
@@ -32,9 +33,18 @@ const [loading, setLoading] = useState(true);
 const [config, setConfig] = useState({});
 const [message, setMessage] = useState("");
 
-    useEffect(() => {
-    retrieveConfig();
-  }, []);
+useEffect(() => {
+  const user = AuthService.getCurrentUser();
+
+  if (user) {
+      retrieveConfig();
+  } else {
+      navigate("/login");
+
+  }
+
+}, []);
+
 
     const retrieveConfig = () => {
     ConfigDataService.getAll()

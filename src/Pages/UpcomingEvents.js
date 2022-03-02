@@ -1,11 +1,13 @@
 import React,  { useState, useEffect } from 'react';
-import { Link, } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
+import AuthService from "../Services/Auth/auth.service";
+
 
 
 import UpcomingDataService from "../Services/UpcomingEventsServices";
 
 function Upcoming() {
-
+    let navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [upcomingevents, setUpcomingEvents] = useState([]);
     const [length, setLength] = useState(false);
@@ -13,8 +15,16 @@ function Upcoming() {
 
 
     useEffect(() => {
-    retrieveUpcoming();
-  }, []);
+        const user = AuthService.getCurrentUser();
+  
+        if (user) {
+            retrieveUpcoming();
+        } else {
+            navigate("/login");
+  
+        }
+  
+    }, []);
 
     const retrieveUpcoming = () => {
     UpcomingDataService.getAll()
