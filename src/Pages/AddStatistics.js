@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Button from '../ReUsables/Button'
-import {Link, } from 'react-router-dom';
+import {Link,useNavigate } from 'react-router-dom';
+import AuthService from "../Services/Auth/auth.service";
 import StatisticsDataService  from "../Services/StatisticsServices";
 
 const AddStatistics = () => {
+  let navigate = useNavigate();
+
   const initialStatisticState = {
     id: null,
     title: "",
@@ -12,6 +15,15 @@ const AddStatistics = () => {
   };
   const [statistics, setStatistics] = useState(initialStatisticState);
   const [submitted, setSubmitted] = useState(false);
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+    if (!user) {
+      navigate("/login");
+    } else {
+         return
+    }
+
+}, []);
 
   const handleInputChange = event => {
     const { name, value } = event.target;

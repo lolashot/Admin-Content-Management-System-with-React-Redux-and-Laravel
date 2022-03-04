@@ -10,7 +10,8 @@ import TokenService from "./Services/Auth/token.service";
 // });
 
 const instance = axios.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "https://ahi-app.herokuapp.com/api",
+  // baseURL: "http://127.0.0.1:8000/api",
   headers: {
     "Content-Type": "application/json",
   },

@@ -1,8 +1,13 @@
 import axios from "axios";
+import http from "../../http-common";
 import TokenService from "./token.service";
-const API_URL = "http://localhost:8000/api/";
+// const API_URL = "https://ahi-app.herokuapp.com/api/";
 const register = (name, email, password) => {
-  return axios.post(API_URL + "register", {
+  // To use const API_URL above
+
+  // return axios.post(API_URL + "register", {
+    return http.post("/register", {
+
     name,
     email,
     password,
@@ -17,8 +22,12 @@ const register = (name, email, password) => {
   });
 };
 const login = (email, password) => {
-  return axios
-    .post(API_URL + "login", {
+    // To use const API_URL above
+
+  // return axios
+    // .post(API_URL + "login", {
+  return http
+      .post("/login", {
       email,
       password,
     })

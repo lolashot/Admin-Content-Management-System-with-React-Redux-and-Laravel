@@ -2,13 +2,10 @@
 import React, { useState, useEffect } from 'react';
 
 import ServicesDataService from "../Services/ServicesComp";
-
+import AuthService from "../Services/Auth/auth.service";
 import { Routes, Route, Link, useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Button from '../ReUsables/Button'
-
-
-
 
 function EditServices() {
   let params = useParams();
@@ -24,7 +21,7 @@ function EditServices() {
   const [currentservice, setCurrentService] = useState(initialServiceDetailsState);
   const [message, setMessage] = useState("");
 
-
+ 
   const getServiceDetails = id => {
     ServicesDataService.get(id)
       .then(response => {
@@ -37,6 +34,7 @@ function EditServices() {
         console.log(e);
       });
   };
+  
 
   const handleInputChange = event => {
     const { name, value } = event.target;

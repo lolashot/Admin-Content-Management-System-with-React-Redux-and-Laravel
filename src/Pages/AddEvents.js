@@ -1,21 +1,32 @@
-import React, { useState } from "react";
-
+import React, { useState,useEffect } from "react";
+import AuthService from "../Services/Auth/auth.service";
 import EventsDataService  from "../Services/EventsService";
-import {Link, } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Button from '../ReUsables/Button'
 
 
 const AddEvent  = () => {
+  let navigate = useNavigate();
+
   const initialEventState = {
     // id: null,
     title: "",
     details: "",
     date: "",
     // status: ""
-
   };
   const [event, setEvent] = useState(initialEventState);
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+    if (!user) {
+      navigate("/login");
+    } else {
+         return
+    }
+
+}, []);
 
   const handleInputChange = input => {
     const { name, value } = input.target;

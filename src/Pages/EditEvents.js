@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import EventsDataService from "../Services/EventsService";
 import TopicDataService from "../Services/TopicService";
 import { Routes, Route, Link, useParams, useNavigate } from "react-router-dom";
+import AuthService from "../Services/Auth/auth.service";
 import axios from 'axios';
 import Button from '../ReUsables/Button'
 
@@ -23,7 +24,7 @@ function EditEvents() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
   const [topics, setTopics] = useState([]);
-
+  
   const getEventDetails = id => {
     EventsDataService.get(id)
       .then(response => {
@@ -59,6 +60,7 @@ function EditEvents() {
     getEventDetails(params.id);
     retrieveTopics();
   }, [params.id]);
+  
 
 
   const updateEvent = (e) => {

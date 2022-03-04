@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from '../ReUsables/Button'
-import {Link, } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import AuthService from "../Services/Auth/auth.service";
 import ServiceDataService  from "../Services/StatisticsServices";
 
 const AddServices = () => {
+  let navigate = useNavigate();
+
   const initialServiceState = {
     id: null,
     title: "",
@@ -14,6 +17,16 @@ const AddServices = () => {
   };
   const [services, setServices] = useState(initialServiceState);
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+    if (!user) {
+      navigate("/login");
+    } else {
+         return
+    }
+
+}, []);
 
   const handleInputChange = event => {
     const { name, value } = event.target;

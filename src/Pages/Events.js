@@ -28,12 +28,11 @@ function Events() {
 
     }, []);
 
-    const retrieveEvents = () => {
-        
+    const retrieveEvents = () => { 
         EventsDataService.getAll()
             .then(response => {
                 console.log("events", response);
-                setEvents(response.data)
+                setEvents(response.data.data)
                 setLoading(false);
             })
             .catch(e => {

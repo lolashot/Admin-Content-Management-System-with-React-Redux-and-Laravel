@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 import StatisticsDataService from "../Services/StatisticsServices";
-
+import AuthService from "../Services/Auth/auth.service";
 import { Routes, Route, Link, useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Button from '../ReUsables/Button'
@@ -24,7 +24,6 @@ function EditStatistics() {
   const [currentstatistic, setCurrentStatistic] = useState(initialStatisticsDetailsState);
   const [message, setMessage] = useState("");
 
-
   const getStatisticDetails = id => {
     StatisticsDataService.get(id)
       .then(response => {
@@ -43,9 +42,24 @@ function EditStatistics() {
     setCurrentStatistic({ ...currentstatistic, [name]: value });
   };
 
+//   useEffect(() => {
+//     const user = AuthService.getCurrentUser();
+//     if (!user) {
+//       navigate("/login");
+//     } else {
+//          return
+//     }
+
+// }, []);
 
   useEffect(() => {
-    getStatisticDetails(params.id);
+    const user = AuthService.getCurrentUser();
+    if (user) {
+   return getStatisticDetails(params.id);
+    }
+    else{
+      navigate("/login");
+    }
   }, [params.id]);
 
 

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 import SpeakersDataService from "../Services/SpeakerService";
-
+import AuthService from "../Services/Auth/auth.service";
 import { Routes, Route, Link, useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Button from '../ReUsables/Button'
@@ -22,7 +22,7 @@ function EditSpeakers() {
   const [currentspeaker, setCurrentSpeaker] = useState(initialSpeakerDetailsState);
   const [message, setMessage] = useState("");
 
-
+  
   const getSpeakerDetails = id => {
     SpeakersDataService.get(id)
       .then(response => {

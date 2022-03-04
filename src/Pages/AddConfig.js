@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {Link, useNavigate} from 'react-router-dom';
 import Button from '../ReUsables/Button'
 import AuthService from "../Services/Auth/auth.service";
@@ -25,19 +25,19 @@ const AddConfig = () => {
      youtube: "",
      instagram: ""
     };
-    const userr = AuthService.getCurrentUser();
 
-  
   const [config, setConfig] = useState(initialConfigState);
   const [submitted, setSubmitted] = useState(false);
-  const [user, setUser] = useState(userr);
 
-  if (!user) {
-    alert('please login')
-    navigate("/login");
-    return
-  }
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+    if (!user) {
+      navigate("/login");
+    } else {
+         return
+    }
 
+}, []);
   const handleInputChange = event => {
     const { name, value } = event.target;
     setConfig({ ...config, [name]: value });
@@ -84,6 +84,7 @@ const AddConfig = () => {
     setConfig(initialConfigState);
     setSubmitted(false);
   };
+  
 
    return (
     <div className="submit-form">

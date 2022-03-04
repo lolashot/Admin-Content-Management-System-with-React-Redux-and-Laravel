@@ -22,11 +22,10 @@ function About() {
 
     useEffect(() => {
       const user = AuthService.getCurrentUser();
-
-      if (user) {
-          retrieveAbout();
+      if (!user) {
+        navigate("/login");
       } else {
-          navigate("/login");
+        retrieveAbout(); 
 
       }
 
