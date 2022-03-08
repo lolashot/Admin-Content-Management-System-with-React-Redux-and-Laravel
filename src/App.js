@@ -31,8 +31,6 @@ import AddConfig from './Pages/AddConfig'
 import AddTestimonials from './Pages/AddTestimonial';
 import EditSpeakers from './Pages/EditSpeakers';
 import EditTopics from './Pages/EditTopics';
-
-
 import Login from './Pages/AuthPages/Login';
 import Profile from './Pages/AuthPages/Profile';
 import Register from './Pages/AuthPages/Register';
