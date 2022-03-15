@@ -1,35 +1,37 @@
 import http from "../http-common";
 
+
+
 const getAll = () => {
-  return http.get("/event");
+  return http.get("/user");
 };
 
 const get = id => {
-  return http.get(`/event/${id}`);
+  return http.get(`/user/${id}`);
 };
 
 const create = data => {
-  return http.post("/event", data);
+  return http.post("/user", data);
 };
 
 const update = (id, data) => {
-  return http.put(`/event/${id}`, data);
+  return http.put(`/user/${id}`, data);
 };
 
 const remove = id => {
-  return http.delete(`/event/${id}`);
+  return http.delete(`/user/${id}`);
 };
 
 const removeAll = () => {
-  return http.delete(`/event`);
+  return http.delete(`/user`);
 };
 
 const findByTitle = searchTitle => {
-  return http.get(`/event/${searchTitle}`);
+  return http.get(`/user/${searchTitle}`);
 };
 
 
-export default {
+const UsersDataService= {
   getAll,
    get,
   create,
@@ -39,4 +41,5 @@ export default {
   findByTitle,
 };
 
-// export default TutorialService;
+
+ export default UsersDataService;

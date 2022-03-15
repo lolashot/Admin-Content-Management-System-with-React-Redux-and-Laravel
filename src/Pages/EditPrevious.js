@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import AuthService from "../Services/Auth/auth.service";
-
 import PreviousEventService from "../Services/PreviouseventsService";
 
 import { Routes, Route, Link, useParams, useNavigate } from "react-router-dom";
@@ -19,6 +18,7 @@ function EditPrevious() {
   };
   const [currentpreviousevent, setCurrentPreviousEvent] = useState(initialPreviousDetailsState);
   const [message, setMessage] = useState("");
+  
 
 const getPreviousDetails = id => {
   PreviousEventService.get(id)
@@ -41,8 +41,6 @@ const handleInputChange = event => {
 useEffect(() => {
     getPreviousDetails(params.id);
   }, [params.id]);
-  
-
   
      return (
 <div className="container">

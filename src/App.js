@@ -20,11 +20,14 @@ import EditPrevious from './Pages/EditPrevious'
 import Events from './Pages/Events'
 import EventDetails from './Pages/EventDetails'
 import EditEvent from './Pages/EditEvents'
+import EditUser from './Pages/EditUser'
 import EditServices from './Pages/EditServices' 
 import EditStatistics from './Pages/EditStatistics'
 import EditTestimonials from './Pages/EditTestimonials'
 import AddAbout from './Pages/AddAbout' 
 import AddEvent from './Pages/AddEvents' 
+import AddAttendee from './Pages/AddAttendees' 
+import Attendees from './Pages/Attendees' 
 import AddServices from './Pages/AddServices' 
 import AddStatistics from './Pages/AddStatistics'
 import AddConfig from './Pages/AddConfig' 
@@ -36,14 +39,8 @@ import Profile from './Pages/AuthPages/Profile';
 import Register from './Pages/AuthPages/Register';
 
 
-
-
-
-
-
 function App() {
   return (
-
 
 <Router>
   <div className="page-wrapper">
@@ -56,10 +53,8 @@ function App() {
       <Routes>
       {/* <Route exact path="/" element={<Home />} /> */}
         <Route exact path="/login" element={<Login />} />
-              <Route exact path="/register" element={<Register />} />
-              <Route exact path="/profile" element={<Profile />} />
-
-
+        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/" element={<Users />} />
         <Route exact path="/users" element={<Users />} />
         <Route exact path="/about" element={<About />} />
@@ -73,6 +68,7 @@ function App() {
         <Route exact path="/testimonials" element={<Testimonials />} /> 
         <Route exact path="/upcomingevents" element={<UpcomingEvents />} />
         <Route exact path="/events" element={<Events />} />
+        <Route exact path="/attendees" element={<Attendees />} />
         <Route exact path="/editupcoming/:id" element={<EditUpcoming />} />
         <Route  path="/editprevious/:id" element={<EditPrevious />} />
         <Route  path="/eventdetails/:id" element={<EventDetails />} />
@@ -81,6 +77,7 @@ function App() {
         <Route  path="/editstatistic/:id" element={<EditStatistics />} />
         <Route  path="/edittestimonial/:id" element={<EditTestimonials />} />
         <Route exact path="/edittopics" element={<EditTopics />} />
+        <Route exact path="/editusers/:id" element={<EditUser />} />
         <Route exact path="/editspeakers" element={<EditSpeakers />} />
         <Route exact path="/addtestimonials" element={<AddTestimonials />} />
         <Route exact path="/addabout" element={<AddAbout />} />
@@ -88,11 +85,7 @@ function App() {
         <Route exact path="/addstatistics" element={<AddStatistics />} />
         <Route exact path="/addconfig" element={<AddConfig />} />
         <Route exact path="/addservices" element={<AddServices />} />
-
-       
-
-
-
+        <Route exact path="/addattendee" element={<AddAttendee />} />
 
         
 

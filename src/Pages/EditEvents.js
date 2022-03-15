@@ -23,45 +23,33 @@ function EditEvents() {
   const [currentevent, setCurrentEvent] = useState(initialEventDetailsState);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
-  const [topics, setTopics] = useState([]);
+  const [items, setItems] = useState([]);
+  // const [Topics, setTopics] = useState([]);
+
   
   const getEventDetails = id => {
     EventsDataService.get(id)
       .then(response => {
         console.log("eventD", response);
-        setCurrentEvent(response.data);
-
-        console.log("eventD2", currentevent);
+        setCurrentEvent(response.data.data);
+        setItems(response.data.data.items)
+        console.log("eventD3", response.data.data.items);
       })
       .catch(e => {
         console.log(e);
       });
   };
 
-  const retrieveTopics = () => {
-    TopicDataService.getAll()
-      .then(response => {
-        console.log("topic", response);
-        setTopics(response.data)
-        setLoading(false);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
 
   const handleInputChange = event => {
     const { name, value } = event.target;
     setCurrentEvent({ ...currentevent, [name]: value });
   };
 
-
   useEffect(() => {
     getEventDetails(params.id);
-    retrieveTopics();
   }, [params.id]);
   
-
 
   const updateEvent = (e) => {
     e.preventDefault();
@@ -80,29 +68,19 @@ function EditEvents() {
 
 
 
-  const deleteTopics = (e, id) => {
-    e.preventDefault();
-    const thisClicked = e.currentTarget;
-    thisClicked.innerText = "Deleting";
-    TopicDataService.remove(id)
-      .then(response => {
-        console.log("delete", response.data);
-        setTopics(topics.filter((topic) => topic.id !== id))
-        // props.history.push("/tutorials");
-      })
-      .catch(e => {
-        console.log(e);
-        thisClicked.innerText = "error";
-
-      });
-  };
-
 
   return (
     <div className="container">
-
+<div className="d-flex justify-content-around">
       <div>
         <Link to={'/addevents'} className="btn btn-warning btn-sm float-end"> Add Event</Link>
+      </div>
+      <div>
+        <Link to={'/attendees'} className="btn btn-secondary btn-sm float-end"> See Attendees</Link>
+      </div>
+      <div>
+        <Link to={'/addattendee'} className="btn btn-success btn-sm float-end"> Add Attendee</Link>
+      </div>
       </div>
       {currentevent ? (
 
@@ -173,59 +151,7 @@ function EditEvents() {
       )}
 
 
-
-      {/* <!-- Button trigger modal --> */}
-      <button type="button" className="btn btn-info" data-toggle="modal" data-target="#customModalTwo">
-        Add Topics To Event
-      </button>
-      {/* <!-- Modal --> */}
-      <div className="modal fade" id="customModalTwo" tabindex="-1" role="dialog" aria-labelledby="customModalTwoLabel" aria-hidden="true">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="customModalTwoLabel">Modal Title</h5>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <form>
-                <div className="form-group">
-                  <input type="hidden" className="form-control" readonly id="inputTitle"
-                    placeholder="Enter full name"
-                    name="id" onChange={handleInputChange}
-                    value={topics.id}></input>
-                </div>
-
-                <div className="form-group">
-                  <label for="recipient-name" className="col-form-label">Topic:</label>
-                  <input type="text" className="form-control" id="recipient-name" />
-                </div>
-                <div class="form-group">
-                  <label for="message-text" className="col-form-label">Message:</label>
-                  <textarea className="form-control" id="message-text"></textarea>
-                </div>
-              </form>
-            </div>
-            <div className="modal-footer custom">
-
-              <div className="left-side">
-                <button type="button" class="btn btn-link danger" data-dismiss="modal">Cancel</button>
-              </div>
-              <div className="divider"></div>
-              <div className="right-side">
-                <button type="button" className="btn btn-link success">Send Message</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      {/* Table fo all topics in event */}
-
-
-
+<h2 className="text-danger"> EVENT ITEMS </h2>
 
       <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -239,25 +165,25 @@ function EditEvents() {
                       <th>Title</th>
                       <th>Details</th>
                       <th>Date</th>
-                      <th>Status</th>
+                      <th>Time</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    {topics.map((topic, index) => (
+                 <tbody>
+                    {items.map((item, index) => (
 
                       <tr key={index}>
-                        <td>{topic.id}</td>
-                        <td>{topic.title}</td>
-                        <td>{topic.details}</td>
-                        <td>{topic.date}</td>
-                        <td>{topic.status}</td>
-                        <td>
+                        <td>{item.id}</td>
+                        <td>{item.title}</td>
+                        <td>{item.details}</td>
+                        <td>{item.date}</td>
+                        <td>{item.time}</td>
+                       {/*  <td>
                           <div className="text-center">
-                            <Link to={`/edittopic/${topic.id}`}><span class="icon-pencil"></span></Link>
-                            <span onClick={(e) => deleteTopics(e, topic.id)} class="icon-trash-2"></span>
+                            <Link to={`/edititem/${items.id}`}><span class="icon-pencil"></span></Link>
+                            <span onClick={(e) => deleteItems(e, items.id)} class="icon-trash-2"></span>
                           </div>
-                        </td>
+                        </td>*/}
                     </tr>
                     ))}
                   </tbody>
