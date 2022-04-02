@@ -1,13 +1,11 @@
-
 import React, { useState, useEffect } from 'react';
 import EventsDataService from "../Services/EventsService";
-import TopicDataService from "../Services/TopicService";
+import ItemsDataService from "../Services/ItemService";
 import { Routes, Route, Link, useParams, useNavigate } from "react-router-dom";
 import AuthService from "../Services/Auth/auth.service";
 import axios from 'axios';
 import Button from '../ReUsables/Button'
-
-
+import swal from 'sweetalert';
 
 
 function EditEvents() {
@@ -26,22 +24,20 @@ function EditEvents() {
   const [items, setItems] = useState([]);
   // const [Topics, setTopics] = useState([]);
 
-  
   const getEventDetails = id => {
     EventsDataService.get(id)
       .then(response => {
         console.log("eventD", response);
         setCurrentEvent(response.data.data);
-        setItems(response.data.data.items)
-        console.log("eventD3", response.data.data.items);
+        setItems(response.data.data.items);
+        console.log("eventD3", response.data.data);
       })
       .catch(e => {
         console.log(e);
       });
   };
 
-
-  const handleInputChange = event => {
+    const handleInputChange = event => {
     const { name, value } = event.target;
     setCurrentEvent({ ...currentevent, [name]: value });
   };
@@ -67,6 +63,31 @@ function EditEvents() {
   };
 
 
+  const deleteItems = (e, id) => {
+    e.preventDefault(); 
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            ItemsDataService.remove(id)
+            .then(response => {
+                console.log("delete", response.data.data);
+                     swal("Poof! Your imaginary file has been deleted!", {
+                    icon: "success",
+                  });
+                setItems(items.filter((item) => item.id !== id)) 
+            });
+        }
+         else  {
+          swal("Your imaginary file is safe!");
+        }
+ }) 
+};
 
 
   return (
@@ -150,8 +171,12 @@ function EditEvents() {
         </div>
       )}
 
-
-<h2 className="text-danger"> EVENT ITEMS </h2>
+<div class="d-flex justify-content-between">
+<h2 className="text-danger"> EVENT TOPICS </h2>
+<Link to={`/event/${params.id}/addtopic`}
+                  type="submit" className="btn btn-success "
+                >Add EVENT TOPICS</Link>
+                </div>
 
       <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -178,12 +203,12 @@ function EditEvents() {
                         <td>{item.details}</td>
                         <td>{item.date}</td>
                         <td>{item.time}</td>
-                       {/*  <td>
+                         <td>
                           <div className="text-center">
-                            <Link to={`/edititem/${items.id}`}><span class="icon-pencil"></span></Link>
-                            <span onClick={(e) => deleteItems(e, items.id)} class="icon-trash-2"></span>
+                            <Link to={`/edittopics/${item.id}`}><span class="icon-pencil"></span></Link>
+                            <span onClick={(e) => deleteItems(e, item.id)} class="icon-trash-2"></span>
                           </div>
-                        </td>*/}
+                        </td>
                     </tr>
                     ))}
                   </tbody>

@@ -1,12 +1,12 @@
  
 import React, { useState, useEffect } from 'react';
-import TopicDataService from "../Services/TopicService";
+import ItemDataService from "../Services/ItemService";
 import SpeakersDataService from "../Services/SpeakerService";
 import { Routes, Route, Link, useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import AuthService from "../Services/Auth/auth.service";
 import Button from '../ReUsables/Button'
-
+import swal from 'sweetalert';
 
 
 
@@ -19,6 +19,7 @@ function EditTopics() {
     id: null,
     title: "",
     date: "",
+    time: "",
     details: ""
   };
   const [currenttopic, setCurrentTopic] = useState(initialTopicDetailsState);
@@ -28,29 +29,21 @@ function EditTopics() {
 
 
   const getTopicDetails = id => {
-    TopicDataService.get(id)
+    ItemDataService.get(id)
       .then(response => {
         console.log("topic", response);
-        setCurrentTopic(response.data);
+        setCurrentTopic(response.data.data);
+        setSpeakers(response.data.data.speakers);
+        console.log("topics", response.data.data);
       
-        console.log("topics", currenttopic);
       })
       .catch(e => {
         console.log(e);
       });
   };
 
-  const retrieveSpeakers = () => {
-    SpeakersDataService.getAll()
-      .then(response => {
-        console.log("speakers", response);
-        setSpeakers(response.data)
-        setLoading(false);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+
+  
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -60,14 +53,13 @@ function EditTopics() {
 
   useEffect(() => {
     getTopicDetails(params.id);
-    retrieveSpeakers();
   }, [params.id]);
 
 
   const updateTopic = (e) => {
     e.preventDefault();
 
-    TopicDataService.update(currenttopic.id, currenttopic)
+    ItemDataService.update(currenttopic.id, currenttopic)
       .then(response => {
         console.log( "topic", response.data);
         setMessage("The Topic was updated successfully!");
@@ -82,21 +74,33 @@ function EditTopics() {
  };
 
  const deleteSpeakers = (e, id) => {
-  e.preventDefault();
-  const thisClicked = e.currentTarget;
-  thisClicked.innerText = "Deleting";
-  SpeakersDataService.remove(id)
-    .then(response => {
-      console.log("delete", response.data);
-      setSpeakers(speakers.filter((speaker) => speaker.id !== id))
-      // props.history.push("/tutorials");
+  e.preventDefault(); 
+  swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
     })
-    .catch(e => {
-      console.log(e);
-      thisClicked.innerText = "error";
-
-    });
+    .then((willDelete) => {
+      if (willDelete) {
+          SpeakersDataService.remove(id)
+          .then(response => {
+              console.log("delete", response.data);
+                   swal("Poof! Your imaginary file has been deleted!", {
+                  icon: "success",
+                });
+              setSpeakers(speakers.filter((speaker) => speaker.id !== id)) 
+          });
+      }
+       else  {
+        swal("Your imaginary file is safe!");
+      }
+}) 
 };
+
+
+
 
 
   return (
@@ -144,6 +148,17 @@ function EditTopics() {
                       </div>
                     </div>
                   
+                    <div className="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-12">
+                      <div className="form-group">
+                        <label htmlFor="inputDate">Input Time</label>
+                        <input type="id" className="form-control" id="inputId"
+                          placeholder="Enter Time"
+                           name="time" onChange={handleInputChange}
+                          value={currenttopic.time}>
+                          </input>
+                      </div>
+                    </div>
+
                     </div>
                     </form>
                     <div className="d-flex justify-content-between">
@@ -173,57 +188,12 @@ function EditTopics() {
         </div>
       )}
 
-      {/* <!-- Button trigger modal --> */}
-      <button type="button" className="btn btn-info" data-toggle="modal" data-target="#customModalTwo">
-        Add Speakers To Event
-      </button>
-      {/* <!-- Modal --> */}
-      <div className="modal fade" id="customModalTwo" tabindex="-1" role="dialog" aria-labelledby="customModalTwoLabel" aria-hidden="true">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="customModalTwoLabel">Speakers</h5>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <form>
-                <div className="form-group">
-                  <input type="hidden" className="form-control" readonly id="inputTitle"
-                    placeholder="Enter full name"
-                    name="id" onChange={handleInputChange}
-                    value={speakers.id}></input>
-                </div>
-
-                <div className="form-group">
-                  <label for="recipient-name" className="col-form-label">Name:</label>
-                  <input type="text" className="form-control" id="recipient-name" />
-                </div>
-                <div class="form-group">
-                  <label for="message-text" className="col-form-label">Qualification:</label>
-                  <textarea className="form-control" id="message-text"></textarea>
-                </div>
-              </form>
-            </div>
-            <div className="modal-footer custom">
-
-              <div className="left-side">
-                <button type="button" class="btn btn-link danger" data-dismiss="modal">Cancel</button>
-              </div>
-              <div className="divider"></div>
-              <div className="right-side">
-                <button type="button" className="btn btn-link success">Send Message</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
 
       {/* Table for all speakers in event */}
 
 
+      <h2 className="text-danger"> EVENT ITEMS SPEAKERS </h2>
 
 
       <div class="row gutters">
@@ -247,10 +217,10 @@ function EditTopics() {
 
                       <tr key={index}>
                         <td>{speaker.id}</td>
+                        <td>{speaker.fullname}</td>
                         <td>{speaker.title}</td>
-                        <td>{speaker.details}</td>
-                        <td>{speaker.date}</td>
-                        <td>{speaker.status}</td>
+                        <td>{speaker.qualifications}</td>
+                        <td>{speaker.topic_details}</td>
                         <td>
                           <div className="text-center">
                             <Link to={`/editspeakers/${speaker.id}`}><span class="icon-pencil"></span></Link>
@@ -272,3 +242,4 @@ function EditTopics() {
 }
 
 export default EditTopics;
+   

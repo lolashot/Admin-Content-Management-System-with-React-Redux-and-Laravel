@@ -18,6 +18,7 @@ import UpcomingEvents from './Pages/UpcomingEvents'
 import EditUpcoming from './Pages/EditUpcoming'
 import EditPrevious from './Pages/EditPrevious'
 import Events from './Pages/Events'
+import Array from './Pages/array'
 import EventDetails from './Pages/EventDetails'
 import EditEvent from './Pages/EditEvents'
 import EditUser from './Pages/EditUser'
@@ -26,6 +27,7 @@ import EditStatistics from './Pages/EditStatistics'
 import EditTestimonials from './Pages/EditTestimonials'
 import AddAbout from './Pages/AddAbout' 
 import AddEvent from './Pages/AddEvents' 
+import AddTopic from './Pages/AddTopic' 
 import AddAttendee from './Pages/AddAttendees' 
 import Attendees from './Pages/Attendees' 
 import AddServices from './Pages/AddServices' 
@@ -76,16 +78,19 @@ function App() {
         <Route  path="/editservice/:id" element={<EditServices />} /> 
         <Route  path="/editstatistic/:id" element={<EditStatistics />} />
         <Route  path="/edittestimonial/:id" element={<EditTestimonials />} />
-        <Route exact path="/edittopics" element={<EditTopics />} />
+        <Route exact path="/edittopics/:id" element={<EditTopics />} />
         <Route exact path="/editusers/:id" element={<EditUser />} />
         <Route exact path="/editspeakers" element={<EditSpeakers />} />
         <Route exact path="/addtestimonials" element={<AddTestimonials />} />
         <Route exact path="/addabout" element={<AddAbout />} />
+        <Route exact path="/event/:id/addtopic" element={<AddTopic />} />
         <Route exact path="/addevents" element={<AddEvent />} />
         <Route exact path="/addstatistics" element={<AddStatistics />} />
         <Route exact path="/addconfig" element={<AddConfig />} />
         <Route exact path="/addservices" element={<AddServices />} />
         <Route exact path="/addattendee" element={<AddAttendee />} />
+        <Route exact path="/array" element={<Array />} />
+
 
         
 
