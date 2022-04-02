@@ -107,7 +107,7 @@ function EditTopics() {
     <div className="container">
 
       <div>
-        <Link to={'/events'} className="btn btn-warning btn-sm float-end"> Add events</Link>
+        <Link to={'/events'} className="btn btn-warning btn-sm float-end">  events</Link>
       </div>
       {currenttopic ? (
 

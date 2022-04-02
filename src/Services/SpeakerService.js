@@ -11,7 +11,7 @@ const get = id => {
 };
 
 const create = data => {
-  return http.post("/speaker", data);
+  return http.post(`/event/${event_id}/item/speaker`, data);
 };
 
 const update = (id, data) => {
