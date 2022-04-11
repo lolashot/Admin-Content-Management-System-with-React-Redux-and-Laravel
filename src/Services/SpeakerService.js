@@ -10,8 +10,8 @@ const get = id => {
   return http.get(`/speaker/${id}`);
 };
 
-const create = data => {
-  return http.post(`/event/${event_id}/item/speaker`, data);
+const create = (item_id, data) => {
+  return http.post(`/item/${item_id}/speaker`, data);
 };
 
 const update = (id, data) => {

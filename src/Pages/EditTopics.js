@@ -9,7 +9,6 @@ import Button from '../ReUsables/Button'
 import swal from 'sweetalert';
 
 
-
 function EditTopics() {
   let params = useParams();
   let navigate = useNavigate();
@@ -43,8 +42,6 @@ function EditTopics() {
   };
 
 
-  
-
   const handleInputChange = event => {
     const { name, value } = event.target;
     setCurrentTopic({ ...currenttopic, [name]: value });
@@ -70,7 +67,6 @@ function EditTopics() {
         console.log(e);
       });
       
-
  };
 
  const deleteSpeakers = (e, id) => {
@@ -98,9 +94,6 @@ function EditTopics() {
       }
 }) 
 };
-
-
-
 
 
   return (
@@ -172,9 +165,9 @@ function EditTopics() {
                <p>{message}</p>
            </div>
            <div>
- <Link to ="/events"
+ <Link to ="/topics"
   type="submit" className="btn btn-danger "
-               >All Events</Link>
+               >All Topics</Link>
            </div>
            </div>
 
@@ -190,16 +183,20 @@ function EditTopics() {
 
 
 
-      {/* Table for all speakers in event */}
-
-
-      <h2 className="text-danger"> EVENT ITEMS SPEAKERS </h2>
-
+      {/* Table for all speakers in topic */}
+<div>
+<div class="d-flex justify-content-between">
+      <h2 className="text-danger"> EVENT ITEM SPEAKER </h2>
+       <Link to={`/item/${params.id}/addspeaker`}
+                  type="submit" className="btn btn-success "
+                >Add Item Speaker(s)</Link>
+                </div>
 
       <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="card">
             <div class="card-body">
+            {speakers ? (
               <div class="table-responsive">
                 <table class="table table-bordered table-dark m-0 text-center">
                   <thead>
@@ -213,29 +210,32 @@ function EditTopics() {
                     </tr>
                   </thead>
                   <tbody>
-                    {speakers.map((speaker, index) => (
-
-                      <tr key={index}>
-                        <td>{speaker.id}</td>
-                        <td>{speaker.fullname}</td>
-                        <td>{speaker.title}</td>
-                        <td>{speaker.qualifications}</td>
-                        <td>{speaker.topic_details}</td>
+                      <tr>
+                        <td>{speakers.id}</td>
+                        <td>{speakers.fullname}</td>
+                        <td>{speakers.title}</td>
+                        <td>{speakers.qualifications}</td>
+                        <td>{speakers.topic_details}</td>
+                        <td>{speakers.time_end}</td>
+                        <td>{speakers.time_end}</td>
                         <td>
                           <div className="text-center">
-                            <Link to={`/editspeakers/${speaker.id}`}><span class="icon-pencil"></span></Link>
-                            <span onClick={(e) => deleteSpeakers(e, speaker.id)} class="icon-trash-2"></span>
+                            <Link to={`/editspeakers/${speakers.id}`}><span class="icon-pencil"></span></Link>
+                            <span onClick={(e) => deleteSpeakers(e, speakers.id)} class="icon-trash-2"></span>
                           </div>
                         </td>
-                        </tr>
-                    ))}
+                        </tr> 
                   </tbody>
                 </table>
               </div>
+               ) : (
+                <h3 className="text-center text-secondary">Please Add A Speaker For This Topic....</h3>
+              )}
             </div>
           </div>
         </div>
       </div>
+    </div>
     </div>
     );
 

@@ -141,6 +141,28 @@ function EditEvents() {
                     </input>
                   </div>
                 </div>
+                <div className="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-12">
+                  <div className="form-group">
+                    <label htmlFor="inputStarttime">Input Start Time</label>
+                    <input type="starttime" className="form-control" id="inputStarttime"
+                      placeholder="Enter Starttime"
+                      name="starttime" onChange={handleInputChange}
+                      value={currentevent.time_start}>
+                    </input>
+                  </div>
+                </div>
+                <div className="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-12">
+                  <div className="form-group">
+                    <label htmlFor="inputDate">Input EndTime</label>
+                    <input type="Endtime" className="form-control" id="inputEndtime"
+                      placeholder="Enter Endtime"
+                      name="endtime" onChange={handleInputChange}
+                      value={currentevent.time_end}>
+                    </input>
+                  </div>
+                </div>
+
+
 
               </div>
             </form>
@@ -190,7 +212,8 @@ function EditEvents() {
                       <th>Title</th>
                       <th>Details</th>
                       <th>Date</th>
-                      <th>Time</th>
+                      <th>Start Time</th>
+                      <th>End Time</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -202,7 +225,8 @@ function EditEvents() {
                         <td>{item.title}</td>
                         <td>{item.details}</td>
                         <td>{item.date}</td>
-                        <td>{item.time}</td>
+                        <td>{item.time_start}</td>
+                        <td>{item.time_end}</td>
                          <td>
                           <div className="text-center">
                             <Link to={`/edittopics/${item.id}`}><span class="icon-pencil"></span></Link>

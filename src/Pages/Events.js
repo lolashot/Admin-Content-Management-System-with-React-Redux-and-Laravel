@@ -95,6 +95,8 @@ function Events() {
                                                 <th>Details</th>
                                                 <th>Date</th>
                                                 <th>Status</th>
+                                                <th>Start Time</th>
+                                                <th>End Time</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -107,6 +109,8 @@ function Events() {
                                                     <td>{event.details}</td>
                                                     <td>{event.date}</td>
                                                     <td>{event.status}</td>
+                                                    <td>{event.time_start}</td>
+                                                    <td>{event.time_end}</td>
                                                     <td>
                                                         <div className="text-center">
                                                             <Link to={`/editevent/${event.id}`}><span class="icon-pencil"></span></Link>

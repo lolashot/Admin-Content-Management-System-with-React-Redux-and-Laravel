@@ -2,24 +2,19 @@ import React,  { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../ReUsables/Button'
 import AuthService from "../Services/Auth/auth.service";
+import ItemDataService from "../Services/ItemService";
 import swal from 'sweetalert';
 
 
-
-import StatisticsDataService from "../Services/StatisticsServices";
-
-function Statistics() {
+function Topics() {
     let navigate = useNavigate();
-
     const [loading, setLoading] = useState(true);
-    const [statistics, setStatistics] = useState([]);
-
-    
+    const [topics, setTopics] = useState([]);
 
     useEffect(() => {
         const user = AuthService.getCurrentUser();
         if (user) {
-            retrieveStatistics();
+            retrieveTopics();
         } else {
             navigate("/login");
   
@@ -27,21 +22,20 @@ function Statistics() {
   
     }, []);
 
-    const retrieveStatistics = () => {
-    StatisticsDataService.getAll()
+    const retrieveTopics = () => {
+    ItemDataService.getAll()
       .then(response => {
-       console.log("tutossssr", response);
-        setStatistics(response.data);
-
+       console.log("topics", response);
+        setTopics(response.data.data);
         setLoading(false);
-        console.log("about", response.data);
+        console.log("topics", response.data);
       })
       .catch(e => {
         console.log(e);
       });
   };
 
-  const deleteStatistic = (e, id) => {
+  const deleteTopic = (e, id) => {
     e.preventDefault(); 
     swal({
         title: "Are you sure?",
@@ -52,13 +46,13 @@ function Statistics() {
       })
       .then((willDelete) => {
         if (willDelete) {
-            StatisticsDataService.remove(id)
+            ItemDataService.remove(id)
             .then(response => {
                 console.log("delete", response.data);
                      swal("Poof! Your imaginary file has been deleted!", {
                     icon: "success",
                   });
-                setStatistics(statistics.filter((statistic) => statistic.id !== id)) 
+                setTopics(topics.filter((topic) => topic.id !== id)) 
             });
         }
          else  {
@@ -67,44 +61,42 @@ function Statistics() {
  }) 
 };
 if (loading) {
-        return <h4 className="text-center">Loading Statistics...</h4>
+        return <h4 className="text-center">Loading Topics...</h4>
     }
 else
 
        return ( 
-        <div>
-                <div className="row">
-                    <Link to={'/addstatistics'} className="btn btn-primary btn-sm float-end"> Add  STATISTICS</Link>
-                </div>
-
-
+        
                 <div class="row gutters">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card border-warning">
-        <div class="card-header bg-warning">Statistics</div>
+        <div class="card-header bg-warning">Topics</div>
           <div class="card-body text-primary">
           <h5 class="card-title">Users Table</h5>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-stripped m-0 text-center">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>Date</th>
                                                 <th>Title</th>
-                                                <th>VALUE</th>
-                                                <th>Actions</th>
+                                                <th>Details</th>
+                                                <th>Start Time</th>
+                                                <th>End Time</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {statistics.map((statistic, index) => (
+                                            {topics.map((topic, index) => (
 
                                                 <tr key={index}>
-                                                    <td>{statistic.id}</td>
-                                                    <td>{statistic.title}</td>
-                                                    <td>{statistic.value}</td>
+                                                    <td>{topic.date}</td>
+                                                    <td>{topic.title}</td>
+                                                    <td>{topic.details}</td>
+                                                    <td>{topic.time_start}</td>
+                                                    <td>{topic.time_end}</td>
                                                     <td>
                                                         <div className="text-center">
-                                                            <Link to={`/editstatistic/${statistic.id}`}><span class="icon-pencil"></span></Link>
-                                                            <span onClick={(e) => deleteStatistic(e, statistic.id)} class="icon-trash-2"></span>
+                                                            <Link to={`/edittopics/${topic.id}`}><span class="icon-pencil"></span></Link>
+                                                            <span onClick={(e) => deleteTopic(e, topic.id)} class="icon-trash-2"></span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -117,8 +109,6 @@ else
 
                     </div>
                 </div>
-            </div>
-
       );
     }
-    export default Statistics;  
+    export default Topics;  

@@ -38,8 +38,6 @@ function EditSpeakers() {
   };
 
 
-  
-
   const handleInputChange = event => {
     const { name, value } = event.target;
     setCurrentSpeaker({ ...currentspeaker, [name]: value });
@@ -56,9 +54,9 @@ function EditSpeakers() {
 
     SpeakerDataService.update(currentspeaker.id, currentspeaker)
       .then(response => {
-        console.log( "speaker", response.data);
-        setMessage("The Topic was updated successfully!");
-        console.log( "speaker", message);
+        console.log( "speakerr", response.data);
+        setMessage("The Speaker was updated successfully!");
+        console.log( "speakerrs", message);
 
       })
       .catch(e => {
@@ -67,6 +65,7 @@ function EditSpeakers() {
       
 
  };
+
 
 
   return (
@@ -94,11 +93,11 @@ function EditSpeakers() {
                     </div>
                     <div className="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-12">
                       <div className="form-group">
-                        <label htmlFor="inputDate">Input ID</label>
-                         <input type="id" className="form-control" id="inputId"
-                          placeholder="Enter Id"
+                        <label htmlFor="inputDate"> Qualifications</label>
+                         <input type="text" className="form-control" id="inputtext"
+                          placeholder="Enter qualifications"
                            name="id" onChange={handleInputChange}
-                          value={currentspeaker.id}>
+                          value={currentspeaker.qualifications}>
                           </input>
                       </div>
                     </div>
@@ -138,9 +137,9 @@ function EditSpeakers() {
                <p>{message}</p>
            </div>
            <div>
- <Link to ="/events"
+ <Link to ="/speakers"
   type="submit" className="btn btn-danger "
-               >All Events</Link>
+               >All Speakers</Link>
            </div>
            </div>
 

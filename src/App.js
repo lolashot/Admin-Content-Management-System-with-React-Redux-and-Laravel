@@ -12,6 +12,8 @@ import Partners from './Pages/Partners'
 import PreviousEvents from './Pages/PreviousEvents'
 import Services from './Pages/Services' 
 import Slider from './Pages/Slider' 
+import Topics from './Pages/Topics'
+import Speakers from './Pages/Speaker' 
 import Statistics from './Pages/Statistics' 
 import Testimonials from './Pages/Testimonial' 
 import UpcomingEvents from './Pages/UpcomingEvents'
@@ -28,14 +30,15 @@ import EditTestimonials from './Pages/EditTestimonials'
 import AddAbout from './Pages/AddAbout' 
 import AddEvent from './Pages/AddEvents' 
 import AddTopic from './Pages/AddTopic' 
+import AddSpeaker from './Pages/AddSpeakers' 
 import AddAttendee from './Pages/AddAttendees' 
 import Attendees from './Pages/Attendees' 
 import AddServices from './Pages/AddServices' 
 import AddStatistics from './Pages/AddStatistics'
 import AddConfig from './Pages/AddConfig' 
 import AddTestimonials from './Pages/AddTestimonial';
-import EditSpeakers from './Pages/EditSpeakers';
 import EditTopics from './Pages/EditTopics';
+import EditSpeakers from './Pages/EditSpeakers';
 import Login from './Pages/AuthPages/Login';
 import Profile from './Pages/AuthPages/Profile';
 import Register from './Pages/AuthPages/Register';
@@ -60,6 +63,8 @@ function App() {
         <Route exact path="/" element={<Users />} />
         <Route exact path="/users" element={<Users />} />
         <Route exact path="/about" element={<About />} />
+        <Route exact path="/topics" element={<Topics />} />
+        <Route exact path="/speakers" element={<Speakers />} />
         <Route path="/config" element={<Config />} />
         <Route exact path="/gallery" element={<Gallery />} /> 
         <Route exact path="/partners" element={<Partners />} /> 
@@ -79,11 +84,13 @@ function App() {
         <Route  path="/editstatistic/:id" element={<EditStatistics />} />
         <Route  path="/edittestimonial/:id" element={<EditTestimonials />} />
         <Route exact path="/edittopics/:id" element={<EditTopics />} />
+        <Route exact path="/editspeakers/:id" element={<EditSpeakers />} />
         <Route exact path="/editusers/:id" element={<EditUser />} />
         <Route exact path="/editspeakers" element={<EditSpeakers />} />
         <Route exact path="/addtestimonials" element={<AddTestimonials />} />
         <Route exact path="/addabout" element={<AddAbout />} />
         <Route exact path="/event/:id/addtopic" element={<AddTopic />} />
+        <Route exact path="/item/:id/addspeaker" element={<AddSpeaker />} />
         <Route exact path="/addevents" element={<AddEvent />} />
         <Route exact path="/addstatistics" element={<AddStatistics />} />
         <Route exact path="/addconfig" element={<AddConfig />} />

@@ -2,23 +2,21 @@ import React, { useState,useEffect } from "react";
 import Button from '../ReUsables/Button'
 import {Link,useNavigate, useParams } from 'react-router-dom';
 import AuthService from "../Services/Auth/auth.service";
-import ItemDataService from "../Services/ItemService";
+import SpeakerDataService from "../Services/SpeakerService";
 
 
-const AddTopic = () => {
+const AddSpeaker = () => {
   let params = useParams();
 
   let navigate = useNavigate();
 
-  const initialTopicState = {
+  const initialSpeakerState = {
+    fullname: "",
     title: "",
-    date: "",
-    time: "",
-    details: ""
+    qualifications: "",
 
-    // published: false
   };
-  const [addtopics, setAddtopics] = useState(initialTopicState);
+  const [addspeakers, setAddspeakers] = useState(initialSpeakerState);
   const [submitted, setSubmitted] = useState(false);
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -32,25 +30,24 @@ const AddTopic = () => {
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-    setAddtopics({ ...addtopics, [name]: value });
+    setAddspeakers({ ...addspeakers, [name]: value });
   };
 
-  const saveaddtopics = () => {
+  const saveaddspeakers = () => {
     var data = {
-      title: addtopics.title,
-      date: addtopics.date,
-      time: addtopics.time,
-      details: addtopics.details
-
+      title: addspeakers.title,
+      fullname: addspeakers.fullname,
+      qualifications: addspeakers.qualifications,
+      
     };
 
-    ItemDataService.create(params.id, data)
+    SpeakerDataService.create(params.id, data)
       .then(response => {
-        setAddtopics({
+        setAddspeakers({
           title: response.data.title,
-          date: response.data.date,
-          time: response.data.time,
-          details: response.data.details
+          fullname: response.data.fullname,
+          qualifications: response.data.qualifications,
+         
         });
         setSubmitted(true);
         console.log(response.data);
@@ -60,8 +57,8 @@ const AddTopic = () => {
       });
   };
 
-  const newTopic = () => {
-    setAddtopics(initialTopicState);
+  const newSpeaker = () => {
+    setAddspeakers(initialSpeakerState);
     setSubmitted(false);
   };
 
@@ -75,10 +72,10 @@ const AddTopic = () => {
               size='btn-sm'
               textcolor='white'
               color='btn-success'
-               text="Add Topic"
-               onClick={newTopic} />
+               text="Add Speaker"
+               onClick={newSpeaker} />
         </div>
-                <Link to={'/topics'} className="btn btn-warning btn-sm float-end"> All Topics</Link>
+                <Link to={'/speakers'} className="btn btn-warning btn-sm float-end"> All SPEAKERS</Link>
 </div>
       ) : (
         <div>
@@ -90,50 +87,39 @@ const AddTopic = () => {
               className="form-control"
               id="title"
               required
-              value={addtopics.title}
+              value={addspeakers.title}
               onChange={handleInputChange}
               name="title"
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="description">Date</label>
+            <label htmlFor="description">FULLNAME</label>
             <input
-              type="date"
+              type="text"
               className="form-control"
-              id="date"
+              id="fullname"
               required
-              value={addtopics.date}
+              value={addspeakers.fullname}
               onChange={handleInputChange}
-              name="date"
+              name="fullname"
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="description">Time</label>
+            <label htmlFor="description">Qualifications</label>
             <input
               type="text"
               className="form-control"
-              id="time"
+              id="qualification"
               required
-              value={addtopics.time}
+              value={addspeakers.qualifications}
               onChange={handleInputChange}
-              name="time"
+              name="qualifications"
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="description">Details</label>
-            <input
-              type="text"
-              className="form-control"
-              id="details"
-              required
-              value={addtopics.details}
-              onChange={handleInputChange}
-              name="details"
-            />
-          </div>
+          
           
 <div className="d-flex justify-content-between">
           <Button
@@ -141,8 +127,8 @@ const AddTopic = () => {
               textcolor='white'
               color='btn-danger'
                text="Submit"
-               onClick={saveaddtopics} />
-                       <Link to={'/allitems'} className="btn btn-warning btn-sm float-end"> All Items</Link>
+               onClick={saveaddspeakers} />
+                       <Link to={'/speakers'} className="btn btn-warning btn-sm float-end"> All SPEAKERS</Link>
 </div>
         </div>
       )}
@@ -150,5 +136,5 @@ const AddTopic = () => {
   );
 };
 
-export default AddTopic
+export default AddSpeaker
   
