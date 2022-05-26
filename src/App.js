@@ -12,6 +12,12 @@ import Partners from './Pages/Partners'
 import PreviousEvents from './Pages/PreviousEvents'
 import Services from './Pages/Services' 
 import Slider from './Pages/Slider' 
+import Vulcs from './Pages/vulcaniser/Vulc'
+import EditVulc from './Pages/vulcaniser/EditVulc'
+import AddVulc from './Pages/vulcaniser/Addvulc'
+import Volunteers from './Pages/volunteers/Volunteers'
+import EditVolunteer from './Pages/volunteers/EditVolunteer'
+import AddVolunteer from './Pages/volunteers/AddVolunteer'
 import Topics from './Pages/Topics'
 import Speakers from './Pages/Speaker' 
 import Statistics from './Pages/Statistics' 
@@ -62,6 +68,12 @@ function App() {
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/" element={<Users />} />
         <Route exact path="/users" element={<Users />} />
+        <Route exact path="/volunteers" element={<Volunteers />} />
+        <Route exact path="/addvolunteer" element={<AddVolunteer />} />
+        <Route exact path="/editvolunteer" element={<EditVolunteer/>} />
+        <Route exact path="/vulcs" element={<Vulcs />} />
+        <Route exact path="/addvulc" element={<AddVulc/>} />
+        <Route exact path="/editvulc" element={<EditVulc/>} />
         <Route exact path="/about" element={<About />} />
         <Route exact path="/topics" element={<Topics />} />
         <Route exact path="/speakers" element={<Speakers />} />
