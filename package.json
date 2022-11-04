@@ -1,5 +1,6 @@
 {
   "name": "ahiadmin2",
+  "homepage": "https://lolashot.github.io/Admin-Content-Management-System-with-React-Redux-and-Laravel/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
